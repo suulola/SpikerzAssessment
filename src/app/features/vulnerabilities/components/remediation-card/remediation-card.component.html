@@ -1,0 +1,49 @@
+<article
+  class="remediation-card flex flex-col rounded-lg border border-gray-soft-50 bg-white p-4 px-5 shadow-xs transition-shadow duration-150 hover:-translate-y-0.5 hover:shadow-medium"
+  [class.remediation-card--expanded]="isExpanded()"
+>
+  <button
+    type="button"
+    class="remediation-card__toggle flex w-full cursor-pointer flex-col gap-4 border-0 bg-transparent p-0 text-left"
+    (click)="toggleExpanded()"
+    [attr.aria-expanded]="isExpanded()"
+    [attr.aria-controls]="'remediation-content-' + technique().id"
+  >
+    <h4 class="remediation-card__title m-0 text-md font-semibold leading-146 text-gray-soft-900 opacity-70">
+      {{ technique().title }}
+    </h4>
+
+    <div class="flex items-center gap-5 rounded-sm bg-gray-soft-25 px-4 py-2.5">
+      <div class="flex shrink-0 items-center gap-2">
+        <div class="remediation-card__icon-circle flex items-center justify-center rounded-full bg-blue-100">
+          <img
+            src="assets/icons/server.svg"
+            alt=""
+            class="remediation-card__icon block"
+            aria-hidden="true"
+          />
+        </div>
+        <div class="remediation-card__icon-text flex flex-col justify-center gap-0.5">
+          <span class="text-sm font-semibold leading-104 text-gray-soft-900">{{ iconConfig().label }}</span>
+          <span class="text-xs font-medium leading-104 text-gray-soft-500">{{ iconConfig().sublabel }}</span>
+        </div>
+      </div>
+
+      <div class="remediation-card__divider bg-gray-soft-400" aria-hidden="true"></div>
+
+      <p class="m-0 text-md font-normal leading-146 tracking-base text-gray-soft-700">
+        {{ technique().shortDescription }}
+      </p>
+    </div>
+  </button>
+
+  <div
+    class="remediation-card__full overflow-hidden transition-[max-height] duration-350"
+    [id]="'remediation-content-' + technique().id"
+    [attr.aria-hidden]="!isExpanded()"
+  >
+    <p class="m-0 mt-4 text-base font-normal leading-146 tracking-base text-gray-soft-700">
+      {{ technique().fullDescription }}
+    </p>
+  </div>
+</article>

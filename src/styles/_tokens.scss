@@ -1,0 +1,302 @@
+
+
+$green-50: #E9FAF0;
+$green-600: #08B94E;
+$green-700: #02983E;
+$green-800: #00732E;
+
+$gray-soft-25: #FAFAFA;
+$gray-soft-50: #F0F1F3;
+$gray-soft-100: #E0E2E7;
+$gray-soft-400: #858D9D;
+$gray-soft-500: #667085;
+$gray-soft-700: #525D73;
+$gray-soft-900: #404A60;
+
+$slate-700: #334155;
+
+$red-50: #FFF1F0;
+$red-100: #FFE2E0;
+$red-700: #E5372B;
+$red-800: #C6190D;
+
+$blue-100: #D7EAFF;
+$blue-600: #1873DE;
+
+$purple-50: #F2EDFF;
+$purple-500: #7A44FF;
+$purple-600: #6236CC;
+
+$orange-600: #FF9500;
+$yellow-600: #EBA622;
+
+$white: #FFFFFF;
+$gray-2: #F2F3F7;
+$gray-7: #656575;
+$night-blue: #383874;
+
+
+$font-family-primary: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+$font-family-mono: 'IBM Plex Mono', monospace;
+
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+$font-size-2xs: 11px;
+$font-size-xs: 9.45px;
+$font-size-sm: 12px;
+$font-size-md: 13px;
+$font-size-md-lg: 14px;
+$font-size-base: 15px;
+$font-size-lg: 18px;
+$font-size-xl: 20px;
+$font-size-2xl: 35px;
+
+$line-height-tight: 1.04em;
+$line-height-snug: 1.07em;
+$line-height-base: 1.1em;
+$line-height-caption: 1.38em;
+$line-height-relaxed: 1.47em;
+$line-height-h5: 1.56em;
+$line-height-donut: 0.8em;
+$line-height-risk: 1.21em;
+$line-height-pill: 1.47em;
+$line-height-popover: 1.6923076923076923em; // 22px for 13px font
+$line-height-loose: 1.75em;
+
+$letter-spacing-base: 0.01em; // 1%
+$letter-spacing-caption: 0.03077em;
+
+
+$spacing-base: 4px;
+
+$spacing-0-5: 2px;  // 2px
+$spacing-0-75: 3px; // 3px (popover specific)
+$spacing-1: 4px;    // 4px
+$spacing-1-5: 6px;  // 6px
+$spacing-2: 8px;    // 8px
+$spacing-2-5: 10px; // 10px
+$spacing-3: 12px;   // 12px
+$spacing-3-5: 13.5px; // 13.5px (graph specific)
+$spacing-4: 16px;   // 16px
+$spacing-4-5: 18px; // 18px (popover specific)
+$spacing-5: 20px;   // 20px
+$spacing-6: 24px;   // 24px
+$spacing-7: 28px;   // 28px (sidebar specific)
+$spacing-7-5: 30px; // 30px
+$spacing-8: 32px;   // 32px
+$spacing-8-75: 35px; // 35px (layout gap)
+$spacing-9: 36px;   // 36px
+$spacing-12: 48px;  // 48px
+$spacing-12-5: 50px; // 50px (graph nodes)
+
+
+$radius-xs: 3px;     // Scrollbars, small elements
+$radius-pill: 6px;   // Popover pills, small rounded elements
+$radius-sm: 8px;     // Menu items, interactive elements
+$radius-circle: 10px; // Badge circles (20px diameter)
+$radius-md: 12px;    // Sidebar, medium containers
+$radius-lg: 15px;    // Cards, panels, main content
+$radius-xl: 16px;    // Collapser button
+$radius-2xl: 20px;   // Large containers, popovers
+$radius-node: 22.5px; // Graph nodes
+$radius-full: 50%;   // Perfect circles
+
+$radius-inner-frame: 2.7px; // Graph node inner frames
+
+
+$shadow-background-md: 0px 16px 18px 0px rgba(0, 0, 0, 0.06);
+
+$shadow-background-xsm: 0px 2px 2px 2px rgba(0, 0, 0, 0.16);
+
+$shadow-drop-100: 0px 1px 4px 0px rgba(12, 12, 13, 0.05);
+
+$shadow-xs: 0px 1px 3px 0px rgba(0, 0, 0, 0.05), 0px 1px 2px 0px rgba(0, 0, 0, 0.1);
+$shadow-remediation: 0px 1px 2px 0px rgba(0, 0, 0, 0.1), inset 0px 1px 3px 0px rgba(0, 0, 0, 0.05);
+
+$shadow-medium: 0px 2.9px 4px 0px rgba(0, 0, 0, 0.05);
+
+
+$container-width: 1512px;
+$container-height: 982px;
+
+$sidebar-width-expanded: 218px;
+$sidebar-height: 981px;
+$sidebar-collapser-size: 32px;
+$sidebar-mobile-width: 288px;
+$sidebar-mobile-max-height: 100vh;
+$sidebar-mobile-max-width: 80vw;
+
+$content-width: 1192px;
+$content-panel-left: 385px;
+$content-panel-height: 919px;
+
+$layout-gap-main: 35px;
+$layout-gap-panels: 20px;
+
+$breakpoint-md: 768px;
+
+
+$graph-node-container: 81px;
+$graph-node-icon-size: 52.92px;
+$graph-node-badge-size: 20px;
+$graph-node-label-width: 67.5px;
+$graph-scene-width: 649px;
+$graph-panel-graph-width: 727px;
+$graph-panel-graph-height: 308px;
+$graph-panel-table-width: 367px;
+$graph-panel-table-height: 214px;
+$graph-panel-asset-col-width: 221px;
+$graph-panel-risk-col-width: 146px;
+$graph-panel-risk-width: 340px;
+$graph-panel-risk-height: $graph-panel-table-height;
+$graph-panel-donut-size: 149px;
+$graph-panel-donut-stroke: 13.19px;
+$graph-panel-icon-lg: 45px;
+$graph-panel-icon-sm: 25px;
+$graph-panel-dot-size: 7px;
+$graph-panel-risk-pill-radius: 38px;
+
+$popover-width: 460px;
+$popover-max-width: 400px;
+$popover-min-width: 340px;
+$popover-min-width-mobile: 320px;
+
+$icon-size-sm: 18px;
+$icon-size-md: 20px;
+$icon-size-graph: 26.25px;
+
+
+$z-index-base: 0;
+$z-index-card: 1;
+$z-index-sidebar: 10;
+$z-index-sidebar-collapser: 11;
+$z-index-overlay: 100;
+$z-index-tooltip: 200;
+$z-index-popover: 9999;
+
+
+$transition-fast: 150ms ease-in-out;
+$transition-base: 250ms ease-in-out;
+$transition-slow: 350ms ease-in-out;
+
+$animation-delay-step: 50ms;
+$animation-pulse-duration: 2s;
+
+
+$sidebar-bg: $white;
+$sidebar-shadow: $shadow-background-md;
+$sidebar-radius: $radius-md;
+$sidebar-padding-y: $spacing-7;
+$sidebar-padding-x: $spacing-4;
+$sidebar-gap: $spacing-6;
+$sidebar-top-gap: $spacing-7-5; // 30px gap between sections in top
+$sidebar-bottom-gap: $spacing-5; // 20px gap in bottom section
+
+$menu-item-padding-y: $spacing-2-5;
+$menu-item-padding-x: $spacing-3;
+$menu-item-gap: $spacing-2;
+$menu-item-icon-size: $icon-size-md;
+$menu-item-radius: $radius-sm;
+$menu-item-bg-selected: $green-50;
+$menu-item-bg-default: transparent;
+$menu-item-text-color: $gray-soft-700;
+$menu-gap: $spacing-1-5; // 6px gap between main menu items
+$menu-secondary-gap: $spacing-2; // 8px gap between secondary menu items
+
+$profile-avatar-size: $spacing-12; // 48px
+$profile-padding: 0 $spacing-1 0 0; // 0px 4px 0px 0px
+$profile-gap: $spacing-3; // 12px
+
+$collapser-size: $sidebar-collapser-size;
+$collapser-bg: $green-800;
+$collapser-stroke: $gray-soft-50;
+$collapser-stroke-width: 3px;
+$collapser-shadow: $shadow-drop-100;
+$collapser-radius: $radius-xl;
+$collapser-padding: 9px 12px;
+
+$card-bg: $white;
+$card-border: 1px solid $gray-soft-50;
+$card-shadow: $shadow-xs;
+$card-radius: $radius-lg;
+$card-padding-y: $spacing-5;
+$card-padding-x: $spacing-7-5;
+
+$graph-bg: $gray-soft-25;
+$graph-radius: $radius-lg;
+$graph-padding-y: $spacing-2-5;
+$graph-padding-x: $spacing-4;
+$graph-node-stroke: $gray-soft-400;
+$graph-node-stroke-width: 0.75px;
+$graph-edge-highlighted-width: 2px;
+$graph-hover-offset: -2px;
+
+$divider-stroke: $gray-soft-100;
+$divider-width: 1px;
+$border-width-risk: 1.1px;
+
+
+@mixin text-heading-section {
+  font-family: $font-family-primary;
+  font-weight: $font-weight-bold;
+  font-size: $font-size-lg;
+  line-height: $line-height-base;
+  letter-spacing: $letter-spacing-base;
+  color: $green-700;
+}
+
+@mixin text-body-description {
+  font-family: $font-family-primary;
+  font-weight: $font-weight-regular;
+  font-size: $font-size-sm;
+  line-height: $line-height-loose;
+  letter-spacing: $letter-spacing-base;
+  color: $gray-soft-700;
+}
+
+@mixin text-label-strong {
+  font-family: $font-family-primary;
+  font-weight: $font-weight-bold;
+  font-size: $font-size-base;
+  line-height: $line-height-relaxed;
+  letter-spacing: $letter-spacing-base;
+  color: $slate-700;
+}
+
+@mixin text-label-value {
+  font-family: $font-family-primary;
+  font-weight: $font-weight-regular;
+  font-size: $font-size-base;
+  line-height: $line-height-relaxed;
+  letter-spacing: $letter-spacing-base;
+  color: $gray-soft-700;
+}
+
+@mixin text-graph-node-label {
+  font-family: $font-family-primary;
+  font-weight: $font-weight-semibold;
+  font-size: $font-size-md;
+  line-height: $line-height-tight;
+  color: $gray-soft-700;
+}
+
+@mixin text-graph-node-tag {
+  font-family: $font-family-primary;
+  font-weight: $font-weight-medium;
+  font-size: $font-size-xs;
+  line-height: $line-height-snug;
+  color: $white;
+  text-align: center;
+}
+
+@mixin text-menu-item {
+  font-family: $font-family-primary;
+  font-weight: $font-weight-regular;
+  font-size: $font-size-base;
+  line-height: $line-height-relaxed;
+  letter-spacing: $letter-spacing-base;
+  color: $gray-soft-700;
+}

@@ -1,0 +1,54 @@
+@use '../../../../../styles/tokens' as *;
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.graph-container {
+  height: $graph-panel-graph-height;
+}
+
+.graph-canvas {
+  min-width: $graph-panel-graph-width;
+  max-width: $graph-panel-graph-width;
+  height: 100%;
+}
+
+.graph-canvas ::ng-deep svg {
+  width: $graph-panel-graph-width;
+  height: $graph-panel-graph-height;
+}
+
+.graph-canvas ::ng-deep .ngx-graph-outer {
+  margin: 0 auto;
+}
+
+.graph-edge__line {
+  stroke: $gray-soft-400;
+  stroke-width: $graph-node-stroke-width;
+  fill: none;
+}
+
+.graph-edge__arrow {
+  fill: $gray-soft-400;
+}
+
+.graph-node__hitbox {
+  cursor: pointer;
+  pointer-events: all;
+
+  &:hover {
+    fill: rgba($gray-soft-900, 0.05);
+  }
+}
+
+.graph-node__label {
+  @include text-graph-node-label;
+  fill: $gray-soft-700;
+}
+
+.graph-node__tag {
+  @include text-graph-node-tag;
+  fill: $gray-soft-500;
+}

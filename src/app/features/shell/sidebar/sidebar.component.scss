@@ -1,0 +1,7 @@
+@use '../../../../styles/tokens' as *;
+
+.sidebar-icon {
+  background-color: currentColor;
+  mask: var(--sidebar-icon) no-repeat center / contain;
+  -webkit-mask: var(--sidebar-icon) no-repeat center / contain;
+}

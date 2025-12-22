@@ -1,0 +1,40 @@
+@use '../../../../../styles/tokens' as *;
+
+.remediation-card__toggle {
+  outline: none;
+  &:focus-visible {
+    outline: $spacing-0-5 solid $green-700;
+    outline-offset: $spacing-0-5;
+    border-radius: $radius-xs;
+  }
+}
+
+.remediation-card__icon-circle {
+  width: $graph-node-icon-size;
+  height: $graph-node-icon-size;
+}
+
+.remediation-card__icon {
+  width: $icon-size-graph;
+  height: $icon-size-graph;
+}
+
+.remediation-card__icon-text {
+  width: $graph-node-label-width;
+}
+
+.remediation-card__divider {
+  width: $divider-width;
+  height: $graph-node-icon-size;
+}
+
+.remediation-card__full {
+  max-height: 0;
+  overflow: hidden;
+}
+
+.remediation-card--expanded {
+  .remediation-card__full {
+    max-height: calc(#{$spacing-12} * 10);
+  }
+}

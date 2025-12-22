@@ -1,0 +1,62 @@
+<div class="graph-container flex w-full justify-start overflow-x-auto overflow-y-hidden">
+  <ngx-graph
+    class="graph-canvas h-full w-full bg-transparent"
+    [nodes]="nodes"
+    [links]="links"
+    [layout]="layout"
+    [layoutSettings]="layoutSettings"
+    [curve]="curve"
+    [view]="view"
+    [panningEnabled]="false"
+    [draggingEnabled]="false"
+    [enableZoom]="false"
+    [autoZoom]="false"
+    [autoCenter]="false"
+    [panOffsetX]="panOffsetX"
+    [panOffsetY]="panOffsetY"
+  >
+    <ng-template #defsTemplate>
+      <svg:marker
+        id="graph-arrow"
+        viewBox="0 0 12 12"
+        refX="12"
+        refY="6"
+        markerWidth="12"
+        markerHeight="12"
+        orient="auto-start-reverse"
+      >
+        <svg:path d="M0 0L12 6L0 12Z" class="graph-edge__arrow" />
+      </svg:marker>
+    </ng-template>
+
+    <ng-template #linkTemplate let-link>
+      <svg:g class="graph-edge">
+        <svg:path class="line graph-edge__line" marker-end="url(#graph-arrow)"></svg:path>
+      </svg:g>
+    </ng-template>
+
+    <ng-template #nodeTemplate let-node>
+      <svg:g class="graph-node" [attr.data-type]="node.data?.type">
+        <svg:rect
+          *ngIf="node.data?.popoverData"
+          x="0" y="0" width="120" height="130"
+          fill="transparent"
+          class="graph-node__hitbox"
+          (mouseenter)="onNodeHover($event, node)"
+          (mouseleave)="onNodeLeave()"
+        />
+
+        <svg:image class="graph-node__icon pointer-events-none" x="33.5" y="24" width="53" height="53" [attr.href]="getNodeIcon(node)" />
+
+        <svg:g *ngIf="node.data?.badge">
+          <svg:image class="graph-node__badge-icon pointer-events-none" x="70.5" y="19" width="25" height="25" [attr.href]="node.data?.badge" />
+        </svg:g>
+
+        <svg:text class="graph-node__label pointer-events-none" x="60" y="104" text-anchor="middle">{{ node.data?.label }}</svg:text>
+        <svg:text *ngIf="node.data?.tag" class="graph-node__tag pointer-events-none" x="60" y="122" text-anchor="middle">
+          {{ node.data?.tag }}
+        </svg:text>
+      </svg:g>
+    </ng-template>
+  </ngx-graph>
+</div>
