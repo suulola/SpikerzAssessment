@@ -36,12 +36,19 @@ export interface NodePopoverData {
 export interface GraphNode {
   id: string;
   label: string;
-  x: number;
-  y: number;
+  x?: number;
+  y?: number;
   radius?: number;
   color?: string;
   type: string;
   kind?: GraphNodeKind;
+  icon?: string;
+  badge?: string;
+  tag?: string;
+  dimension?: {
+    width: number;
+    height: number;
+  };
   hasBadge?: boolean;
   connections?: string[];
   popoverData?: NodePopoverData;

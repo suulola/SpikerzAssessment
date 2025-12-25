@@ -162,7 +162,8 @@ module.exports = {
       },
       maxHeight: {
         '120': '480px',
-        '919': '919px'
+        '919': '919px',
+        'panel': 'var(--panel-max-height)'
       },
       maxWidth: {
         '391': '391px',

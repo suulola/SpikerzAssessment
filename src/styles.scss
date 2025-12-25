@@ -29,4 +29,9 @@
   --surface-card: #{$white};
   --text-color: #{$gray-soft-700};
   --text-color-secondary: #{$gray-soft-400};
+  --risk-critical: #{$red-800};
+  --risk-high: #{$red-700};
+  --risk-medium: #{$yellow-600};
+  --risk-low: #{$green-600};
+  --panel-max-height: #{$panel-max-height};
 }

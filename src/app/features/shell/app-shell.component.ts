@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet } from '@angular/router';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { SidebarMenuItem } from './sidebar/sidebar.types';
+import { SidebarMenuItem } from '@core/models';
 
 @Component({
   selector: 'app-shell',

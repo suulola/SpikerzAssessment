@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, input, output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LucideAngularModule, LogOut, Package } from 'lucide-angular';
-import { SidebarMenuItem, SidebarProfile } from './sidebar.types';
+import { LucideAngularModule, LogOut, Package, LucideIconData } from 'lucide-angular';
+import { SidebarMenuItem, SidebarProfile, SidebarIcon } from '@core/models';
 
 @Component({
   selector: 'app-sidebar',
@@ -42,7 +42,7 @@ export class SidebarComponent {
 
   selectedMenuItemId = signal('vulnerabilities');
 
-  isLucideIcon(icon: any): boolean {
+  isLucideIcon(icon: SidebarIcon): icon is LucideIconData {
     return typeof icon !== 'string';
   }
 

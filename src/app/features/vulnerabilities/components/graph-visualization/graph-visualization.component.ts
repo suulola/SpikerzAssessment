@@ -1,9 +1,22 @@
-import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  OnDestroy,
+  ViewChild,
+  computed,
+  inject,
+  signal
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgxGraphModule, type Node, type Edge } from '@swimlane/ngx-graph';
 import { curveBundle } from 'd3-shape';
 import { GraphStore } from '@core/state/graph.store';
-import { type NodePopoverData, type GraphNodeKind, type PopoverVariant } from '@core/models';
+import { GraphDomainStore } from '@core/state/graph-domain.store';
+import { GraphConfigurationService } from '@core/services/graph-configuration.service';
+import { PopoverPositioningService } from '@core/services/popover-positioning.service';
+import { type GraphNode, type GraphNodeKind, type GraphMetrics } from '@core/models';
 
 @Component({
   selector: 'app-graph-visualization',
@@ -13,315 +26,151 @@ import { type NodePopoverData, type GraphNodeKind, type PopoverVariant } from '@
   styleUrl: './graph-visualization.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class GraphVisualizationComponent {
+export class GraphVisualizationComponent implements AfterViewInit, OnDestroy {
   private readonly graphStore = inject(GraphStore);
+  private readonly graphDomainStore = inject(GraphDomainStore);
+  private readonly graphConfig = inject(GraphConfigurationService);
+  private readonly popoverPositioning = inject(PopoverPositioningService);
+  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
+  @ViewChild('graphContainer', { static: true }) graphContainer?: ElementRef<HTMLDivElement>;
+  private resizeObserver?: ResizeObserver;
+  private hoverTimeout: ReturnType<typeof setTimeout> | null = null;
+  private leaveTimeout: ReturnType<typeof setTimeout> | null = null;
   readonly curve = curveBundle.beta(1);
-  private hoverTimeout: any = null;
-  readonly iconByKind: Record<GraphNodeKind, string> = {
-    perimeter: 'assets/icons/graph/node-perimeter.svg',
-    server: 'assets/icons/graph/node-server.svg',
-    endpoint: 'assets/icons/graph/popover-endpoint.svg'
-  };
 
-  readonly popoverIconByKind: Record<GraphNodeKind, string> = {
-    perimeter: 'assets/icons/graph/node-perimeter.svg',
-    server: 'assets/icons/graph/node-server.svg',
-    endpoint: 'assets/icons/graph/popover-endpoint.svg'
-  };
+  private readonly graphMetrics = signal<GraphMetrics>({
+    minWidth: 0,
+    minHeight: 0,
+    nodeWidth: 0,
+    nodeHeight: 0,
+    nodeIconSize: 0,
+    nodeIconX: 0,
+    nodeIconY: 0,
+    badgeSize: 0,
+    badgeX: 0,
+    badgeY: 0,
+    labelY: 0,
+    tagY: 0,
+    layoutNodePadding: 0,
+    layoutRankPadding: 0,
+    layoutMarginX: 0,
+    layoutMarginY: 0,
+    panOffsetX: 0,
+    panOffsetY: 0,
+    popoverPerimeterWidth: 0,
+    popoverDetailsWidth: 0,
+    popoverMinHeight: 0,
+    popoverOffsetY: 0,
+    popoverViewportPadding: 0
+  });
 
-  private readonly popoverVariantByKind: Record<GraphNodeKind, PopoverVariant> = {
-    perimeter: 'perimeter',
-    server: 'details',
-    endpoint: 'details'
-  };
+  readonly metrics = this.graphMetrics;
+  private readonly graphSize = signal({ width: 0, height: 0 });
 
-  getNodeIcon(node: Node): string {
-    const kind = (node.data?.kind || 'server') as GraphNodeKind;
-    return node.data?.icon || this.iconByKind[kind];
-  }
+  private readonly graphData = this.graphDomainStore.graphData;
 
-  readonly nodes: Node[] = [
-    {
-      id: 'alert',
-      label: 'Edge Gateway',
-      data: {
-        kind: 'perimeter',
-        type: 'alert',
-        label: 'Edge Gateway',
-        tag: 'FW',
-        popoverData: {
-          variant: this.popoverVariantByKind.perimeter,
-          title: 'Ingress Alerts',
-          vulnerabilities: ['CVE-2024-3094', 'CVE-2023-46805', 'CVE-2023-34362', 'CVE-2024-3400', 'CVE-2023-38408', 'CVE-2023-44487'],
-          metadata: {
-            label: 'Site',
-            value: 'edge-ams-01'
-          }
-        } as NodePopoverData
-      },
+  readonly nodes = computed<Node[]>(() => {
+    const metrics = this.graphMetrics();
+    return this.graphData().nodes.map(node => ({
+      id: node.id,
+      label: node.label,
+      data: node,
       dimension: {
-        width: 120,
-        height: 130
+        width: metrics.nodeWidth,
+        height: metrics.nodeHeight
       }
-    },
-    {
-      id: 'server-a',
-      label: 'API Gateway',
-      data: {
-        kind: 'server',
-        type: 'server',
-        label: 'ApiGw-01',
-        popoverData: {
-          variant: this.popoverVariantByKind.server,
-          header: {
-            icon: this.popoverIconByKind.server,
-            title: 'ApiGw-01'
-          },
-          rows: [
-            {
-              gap: 'tight',
-              items: [
-                { type: 'icon', icon: 'assets/icons/popover/receipt-text.svg' },
-                { type: 'text', value: 'Service:', textStyle: 'title' },
-                { type: 'text', value: 'Public API', textStyle: 'title' },
-                { type: 'chip', value: '10.10.12.14', tone: 'purple' }
-              ]
-            },
-            {
-              gap: 'tight',
-              items: [
-                { type: 'chip', value: '10.10.12.14', tone: 'purple' },
-                { type: 'text', value: 'Ports', textStyle: 'title' },
-                { type: 'chip', value: '443', tone: 'purple' },
-                { type: 'chip', value: '8443', tone: 'purple' }
-              ]
-            }
-          ]
-        } as NodePopoverData
-      },
-      dimension: {
-        width: 120,
-        height: 130
-      }
-    },
-    {
-      id: 'server-b',
-      label: 'Auth Service',
-      data: {
-        kind: 'server',
-        type: 'server',
-        label: 'AuthSrv-02',
-        popoverData: {
-          variant: this.popoverVariantByKind.server,
-          header: {
-            icon: this.popoverIconByKind.server,
-            title: 'AuthSrv-02'
-          },
-          rows: [
-            {
-              gap: 'tight',
-              items: [
-                { type: 'icon', icon: 'assets/icons/popover/receipt-text.svg' },
-                { type: 'text', value: 'Policy:', textStyle: 'title' },
-                { type: 'chip', value: 'MFA', tone: 'yellow' },
-                { type: 'chip', value: 'Enforced', tone: 'green' },
-                { type: 'text', value: 'SSO Gateway', textStyle: 'title' }
-              ]
-            },
-            {
-              gap: 'tight',
-              items: [
-                { type: 'chip', value: '10.10.22.21', tone: 'purple' },
-                { type: 'text', value: 'Hosts', textStyle: 'title' },
-                { type: 'chip', value: '10.10.22.22', tone: 'purple' },
-                { type: 'chip', value: '10.10.22.23', tone: 'purple' },
-                { type: 'chip', value: 'ALB-2A7B', tone: 'blue' }
-              ]
-            },
-            {
-              gap: 'tight',
-              items: [
-                { type: 'icon', icon: 'assets/icons/popover/receipt-text.svg' },
-                { type: 'text', value: 'Region:', textStyle: 'title' },
-                { type: 'chip', value: 'us-east-1', tone: 'yellow' },
-                { type: 'text', value: 'Auth Cluster', textStyle: 'title' }
-              ]
-            },
-            {
-              gap: 'tight',
-              items: [
-                { type: 'chip', value: '10.10.22.21', tone: 'purple' },
-                { type: 'chip', value: '10.10.22.22', tone: 'purple' },
-                { type: 'text', value: 'Targets', textStyle: 'title' },
-                { type: 'chip', value: '10.10.22.23', tone: 'purple' },
-                { type: 'chip', value: '10.10.22.24', tone: 'purple' }
-              ]
-            }
-          ]
-        } as NodePopoverData
-      },
-      dimension: {
-        width: 120,
-        height: 130
-      }
-    },
-    {
-      id: 'endpoint-primary',
-      label: 'Customer DB',
-      data: {
-        kind: 'endpoint',
-        type: 'endpoint',
-        label: 'CustomerDB',
-        tag: '10.10.31.10',
-        popoverData: {
-          variant: this.popoverVariantByKind.endpoint,
-          header: {
-            icon: this.popoverIconByKind.endpoint,
-            title: 'CustomerDB'
-          },
-          rows: [
-            {
-              gap: 'tight',
-              items: [
-                { type: 'icon', icon: 'assets/icons/popover/receipt-text.svg' },
-                { type: 'text', value: 'Database:', textStyle: 'title' },
-                { type: 'text', value: 'Customer Records', textStyle: 'title' },
-                { type: 'chip', value: '10.10.31.10', tone: 'purple' }
-              ]
-            },
-            {
-              gap: 'tight',
-              items: [
-                { type: 'chip', value: '10.10.31.10', tone: 'purple' },
-                { type: 'text', value: 'Ports', textStyle: 'title' },
-                { type: 'chip', value: '5432', tone: 'purple' },
-                { type: 'chip', value: '6432', tone: 'purple' }
-              ]
-            }
-          ]
-        } as NodePopoverData
-      },
-      dimension: {
-        width: 120,
-        height: 130
-      }
-    },
-    {
-      id: 'endpoint-secondary',
-      label: 'Billing DB',
-      data: {
-        kind: 'endpoint',
-        type: 'endpoint',
-        label: 'BillingDB',
-        tag: '10.10.41.20',
-        popoverData: {
-          variant: this.popoverVariantByKind.endpoint,
-          header: {
-            icon: this.popoverIconByKind.endpoint,
-            title: 'BillingDB'
-          },
-          rows: [
-            {
-              gap: 'tight',
-              items: [
-                { type: 'icon', icon: 'assets/icons/popover/receipt-text.svg' },
-                { type: 'text', value: 'Policy:', textStyle: 'title' },
-                { type: 'chip', value: 'PCI', tone: 'yellow' },
-                { type: 'chip', value: 'Encrypted', tone: 'green' },
-                { type: 'text', value: 'Billing Ledger', textStyle: 'title' }
-              ]
-            },
-            {
-              gap: 'tight',
-              items: [
-                { type: 'chip', value: '10.10.41.20', tone: 'purple' },
-                { type: 'text', value: 'Hosts', textStyle: 'title' },
-                { type: 'chip', value: '10.10.41.21', tone: 'purple' },
-                { type: 'chip', value: '10.10.41.22', tone: 'purple' },
-                { type: 'chip', value: 'LB-7C2F', tone: 'blue' }
-              ]
-            },
-            {
-              gap: 'tight',
-              items: [
-                { type: 'icon', icon: 'assets/icons/popover/receipt-text.svg' },
-                { type: 'text', value: 'Region:', textStyle: 'title' },
-                { type: 'chip', value: 'eu-west-1', tone: 'yellow' },
-                { type: 'text', value: 'Billing Cluster', textStyle: 'title' }
-              ]
-            },
-            {
-              gap: 'tight',
-              items: [
-                { type: 'chip', value: '10.10.41.20', tone: 'purple' },
-                { type: 'chip', value: '10.10.41.21', tone: 'purple' },
-                { type: 'text', value: 'Targets', textStyle: 'title' },
-                { type: 'chip', value: '10.10.41.22', tone: 'purple' },
-                { type: 'chip', value: '10.10.41.23', tone: 'purple' }
-              ]
-            }
-          ]
-        } as NodePopoverData
-      },
-      dimension: {
-        width: 120,
-        height: 130
-      }
-    }
-  ];
+    }));
+  });
 
-  readonly links: Edge[] = [
-    {
-      id: 'alert-server-a',
-      source: 'alert',
-      target: 'server-a'
-    },
-    {
-      id: 'server-a-server-b',
-      source: 'server-a',
-      target: 'server-b'
-    },
-    {
-      id: 'server-b-endpoint-primary',
-      source: 'server-b',
-      target: 'endpoint-primary'
-    },
-    {
-      id: 'server-b-endpoint-secondary',
-      source: 'server-b',
-      target: 'endpoint-secondary'
-    }
-  ];
+  readonly links = computed<Edge[]>(() => {
+    return this.graphData().edges.map(edge => ({
+      id: edge.id,
+      source: edge.source,
+      target: edge.target
+    }));
+  });
 
   readonly layout = 'dagre';
 
-  readonly layoutSettings = {
-    orientation: 'LR',
-    nodePadding: 20,
-    rankPadding: 40,
-    marginX: 20,
-    marginY: 20
-  };
+  readonly layoutSettings = computed(() => {
+    const metrics = this.graphMetrics();
+    return {
+      orientation: 'LR',
+      nodePadding: metrics.layoutNodePadding,
+      rankPadding: metrics.layoutRankPadding,
+      marginX: metrics.layoutMarginX,
+      marginY: metrics.layoutMarginY
+    };
+  });
 
-  readonly view: [number, number] = [727, 308];
-  readonly panOffsetX = 36.5;
-  readonly panOffsetY = 86;
+  readonly view = computed<[number, number]>(() => {
+    const { width, height } = this.graphSize();
+    const { minWidth, minHeight } = this.graphMetrics();
+    return [Math.max(width, minWidth), Math.max(height, minHeight)];
+  });
 
-  protected onNodeHover(event: MouseEvent, node: Node): void {
-    if (this.hoverTimeout) {
-      clearTimeout(this.hoverTimeout);
+  readonly panOffsetX = computed(() => this.graphMetrics().panOffsetX);
+  readonly panOffsetY = computed(() => this.graphMetrics().panOffsetY);
+
+  getNodeIcon(node: Node): string {
+    const data = node.data as GraphNode | undefined;
+    const kind = (data?.kind || 'server') as GraphNodeKind;
+    return data?.icon || this.graphConfig.getIconPath(kind);
+  }
+
+  ngAfterViewInit(): void {
+    this.updateMetrics();
+    const container = this.graphContainer?.nativeElement;
+    if (!container) {
+      return;
     }
-    this.graphStore.unpinPopover();
 
-    const popoverData = node.data?.popoverData;
+    const updateSize = () => {
+      this.graphSize.set({
+        width: container.clientWidth,
+        height: container.clientHeight
+      });
+    };
+
+    updateSize();
+    const observer = new ResizeObserver(() => updateSize());
+    observer.observe(container);
+    this.resizeObserver = observer;
+  }
+
+  ngOnDestroy(): void {
+    this.resizeObserver?.disconnect();
+  }
+
+  protected onCanvasClick(): void {
+    this.graphStore.clearSelection();
+  }
+
+  protected onNodeSelect(event: MouseEvent | KeyboardEvent, node: Node): void {
+    event.stopPropagation();
+    const data = node.data as GraphNode | undefined;
+    const popoverData = data?.popoverData;
     if (!popoverData) return;
+
+    const selected = this.graphStore.selectedNode();
+    if (selected?.id === node.id) {
+      this.graphStore.clearSelection();
+      return;
+    }
 
     const target = event.currentTarget as HTMLElement;
     const rect = target.getBoundingClientRect();
-    const kind = (node.data?.kind || 'server') as GraphNodeKind;
-    const popoverIcon = this.popoverIconByKind[kind];
-    const variant = popoverData.variant ?? this.popoverVariantByKind[kind];
-    const popoverX = this.getPopoverX(rect, variant);
+    const kind = (data?.kind || 'server') as GraphNodeKind;
+    const popoverIcon = this.graphConfig.getPopoverIconPath(kind);
+    const variant = popoverData.variant ?? this.graphConfig.getPopoverVariant(kind);
+    const metrics = this.graphMetrics();
+    const position = this.popoverPositioning.calculatePosition(rect, variant, {
+      popoverPerimeterWidth: metrics.popoverPerimeterWidth,
+      popoverDetailsWidth: metrics.popoverDetailsWidth,
+      popoverMinHeight: metrics.popoverMinHeight,
+      popoverOffsetY: metrics.popoverOffsetY,
+      popoverViewportPadding: metrics.popoverViewportPadding
+    });
 
     this.graphStore.selectNode(
       {
@@ -329,9 +178,7 @@ export class GraphVisualizationComponent {
         label: node.label || '',
         x: rect.left + rect.width / 2,
         y: rect.top + rect.height / 2,
-        radius: 50,
-        color: '#1873DE',
-        type: node.data?.type || 'unknown',
+        type: data?.type || 'unknown',
         kind,
         popoverData: {
           ...popoverData,
@@ -341,36 +188,107 @@ export class GraphVisualizationComponent {
             : popoverData.header
         }
       },
-      {
-        x: popoverX,
-        y: rect.bottom + 10
-      }
+      position
     );
   }
 
-  private getPopoverX(rect: DOMRect, variant: PopoverVariant): number {
-    const viewportWidth = window.innerWidth;
-    const viewportPadding = 16;
-    const mobileWidth = viewportWidth * 0.9;
-    const baseWidth = variant === 'perimeter' ? 460 : 391;
-    const maxPopoverWidth = Math.max(0, Math.min(baseWidth, mobileWidth));
-    const halfWidth = maxPopoverWidth / 2;
-    const centerX = rect.left + rect.width / 2;
-    const minX = viewportPadding + halfWidth;
-    const maxX = viewportWidth - viewportPadding - halfWidth;
+  protected onNodeKeydown(event: KeyboardEvent, node: Node): void {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      this.onNodeSelect(event, node);
+    }
+  }
 
-    return Math.min(Math.max(centerX, minX), maxX);
+  protected onNodeHover(event: MouseEvent, node: Node): void {
+    if (this.hoverTimeout) {
+      clearTimeout(this.hoverTimeout);
+    }
+    if (this.leaveTimeout) {
+      clearTimeout(this.leaveTimeout);
+      this.leaveTimeout = null;
+    }
+
+    const target = event.currentTarget as HTMLElement;
+    if (!target) return;
+
+    this.hoverTimeout = setTimeout(() => {
+      const data = node.data as GraphNode | undefined;
+      const popoverData = data?.popoverData;
+      if (!popoverData) return;
+
+      const rect = target.getBoundingClientRect();
+      const kind = (data?.kind || 'server') as GraphNodeKind;
+      const popoverIcon = this.graphConfig.getPopoverIconPath(kind);
+      const variant = popoverData.variant ?? this.graphConfig.getPopoverVariant(kind);
+      const metrics = this.graphMetrics();
+      const position = this.popoverPositioning.calculatePosition(rect, variant, {
+        popoverPerimeterWidth: metrics.popoverPerimeterWidth,
+        popoverDetailsWidth: metrics.popoverDetailsWidth,
+        popoverMinHeight: metrics.popoverMinHeight,
+        popoverOffsetY: metrics.popoverOffsetY,
+        popoverViewportPadding: metrics.popoverViewportPadding
+      });
+
+      this.graphStore.selectNode(
+        {
+          id: node.id,
+          label: node.label || '',
+          x: rect.left + rect.width / 2,
+          y: rect.top + rect.height / 2,
+          type: data?.type || 'unknown',
+          kind,
+          popoverData: {
+            ...popoverData,
+            variant,
+            header: popoverData.header
+              ? { ...popoverData.header, icon: popoverData.header.icon || popoverIcon }
+              : popoverData.header
+          }
+        },
+        position
+      );
+    }, 300);
   }
 
   protected onNodeLeave(): void {
     if (this.hoverTimeout) {
       clearTimeout(this.hoverTimeout);
+      this.hoverTimeout = null;
     }
 
-    this.hoverTimeout = setTimeout(() => {
-      if (!this.graphStore.isPopoverPinned()) {
-        this.graphStore.clearSelection();
-      }
-    }, 150);
+    this.leaveTimeout = setTimeout(() => {
+      this.graphStore.clearSelection();
+    }, 200);
+  }
+
+  private updateMetrics(): void {
+    const styles = getComputedStyle(this.host.nativeElement);
+    const readVar = (name: string) => Number.parseFloat(styles.getPropertyValue(name)) || 0;
+
+    this.graphMetrics.set({
+      minWidth: readVar('--graph-min-width'),
+      minHeight: readVar('--graph-min-height'),
+      nodeWidth: readVar('--graph-node-width'),
+      nodeHeight: readVar('--graph-node-height'),
+      nodeIconSize: readVar('--graph-node-icon-size'),
+      nodeIconX: readVar('--graph-node-icon-x'),
+      nodeIconY: readVar('--graph-node-icon-y'),
+      badgeSize: readVar('--graph-node-badge-size'),
+      badgeX: readVar('--graph-node-badge-x'),
+      badgeY: readVar('--graph-node-badge-y'),
+      labelY: readVar('--graph-node-label-y'),
+      tagY: readVar('--graph-node-tag-y'),
+      layoutNodePadding: readVar('--graph-layout-node-padding'),
+      layoutRankPadding: readVar('--graph-layout-rank-padding'),
+      layoutMarginX: readVar('--graph-layout-margin-x'),
+      layoutMarginY: readVar('--graph-layout-margin-y'),
+      panOffsetX: readVar('--graph-pan-offset-x'),
+      panOffsetY: readVar('--graph-pan-offset-y'),
+      popoverPerimeterWidth: readVar('--popover-perimeter-width'),
+      popoverDetailsWidth: readVar('--popover-details-width'),
+      popoverMinHeight: readVar('--popover-min-height'),
+      popoverOffsetY: readVar('--popover-offset-y'),
+      popoverViewportPadding: readVar('--popover-viewport-padding')
+    });
   }
 }

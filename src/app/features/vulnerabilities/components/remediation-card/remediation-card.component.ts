@@ -1,18 +1,6 @@
 import { Component, input, signal, computed, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-export interface RemediationTechniqueData {
-  readonly id: string;
-  readonly title: string;
-  readonly shortDescription: string;
-  readonly fullDescription: string;
-  readonly type: 'A' | 'B' | 'C';
-}
-
-interface IconConfig {
-  readonly label: string;
-  readonly sublabel: string;
-}
+import { type RemediationIconConfig, type RemediationTechniqueData } from '@core/models';
 
 @Component({
   selector: 'app-remediation-card',
@@ -26,7 +14,7 @@ export class RemediationCardComponent {
   technique = input.required<RemediationTechniqueData>();
   protected readonly isExpanded = signal(false);
 
-  private readonly iconMapping: Record<'A' | 'B' | 'C', IconConfig> = {
+  private readonly iconMapping: Record<'A' | 'B' | 'C', RemediationIconConfig> = {
     A: {
       label: 'SSH Server',
       sublabel: 'Bastion'
@@ -41,7 +29,7 @@ export class RemediationCardComponent {
     }
   };
 
-  protected readonly iconConfig = computed<IconConfig>(() => {
+  protected readonly iconConfig = computed<RemediationIconConfig>(() => {
     return this.iconMapping[this.technique().type];
   });
 

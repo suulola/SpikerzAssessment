@@ -3,25 +3,61 @@
 :host {
   display: block;
   width: 100%;
+  --graph-min-width: #{$graph-panel-graph-min-width};
+  --graph-min-height: #{$graph-panel-graph-min-height};
+  --graph-node-width: #{$graph-node-width};
+  --graph-node-height: #{$graph-node-height};
+  --graph-node-icon-size: #{$graph-node-icon-size};
+  --graph-node-icon-x: #{$graph-node-icon-x};
+  --graph-node-icon-y: #{$graph-node-icon-y};
+  --graph-node-badge-size: #{$graph-node-badge-size};
+  --graph-node-badge-x: #{$graph-node-badge-x};
+  --graph-node-badge-y: #{$graph-node-badge-y};
+  --graph-node-label-y: #{$graph-node-label-y};
+  --graph-node-tag-y: #{$graph-node-tag-y};
+  --graph-layout-node-padding: #{$graph-layout-node-padding};
+  --graph-layout-rank-padding: #{$graph-layout-rank-padding};
+  --graph-layout-margin-x: #{$graph-layout-margin-x};
+  --graph-layout-margin-y: #{$graph-layout-margin-y};
+  --graph-pan-offset-x: #{$graph-pan-offset-x};
+  --graph-pan-offset-y: #{$graph-pan-offset-y};
+  --popover-perimeter-width: #{$popover-width};
+  --popover-details-width: #{$popover-details-width};
+  --popover-min-height: #{$popover-min-height};
+  --popover-offset-y: #{$popover-offset-y};
+  --popover-viewport-padding: #{$popover-viewport-padding};
 }
 
 .graph-container {
-  height: $graph-panel-graph-height;
+  min-height: var(--graph-min-height);
+  height: auto;
 }
 
 .graph-canvas {
-  min-width: $graph-panel-graph-width;
-  max-width: $graph-panel-graph-width;
+  width: 100%;
+  min-width: var(--graph-min-width);
   height: 100%;
 }
 
 .graph-canvas ::ng-deep svg {
-  width: $graph-panel-graph-width;
-  height: $graph-panel-graph-height;
+  width: 100%;
+  height: 100%;
+  min-width: var(--graph-min-width);
+  min-height: var(--graph-min-height);
 }
 
 .graph-canvas ::ng-deep .ngx-graph-outer {
   margin: 0 auto;
+}
+
+@media (max-width: $breakpoint-md) {
+  :host {
+    --graph-min-width: 0;
+  }
+
+  .graph-canvas {
+    min-width: 0;
+  }
 }
 
 .graph-edge__line {
@@ -37,6 +73,7 @@
 .graph-node__hitbox {
   cursor: pointer;
   pointer-events: all;
+  outline: none;
 
   &:hover {
     fill: rgba($gray-soft-900, 0.05);

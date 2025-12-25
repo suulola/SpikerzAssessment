@@ -1,19 +1,23 @@
-<div class="graph-container flex w-full justify-start overflow-x-auto overflow-y-hidden">
+<div
+  #graphContainer
+  class="graph-container flex w-full justify-start overflow-x-auto overflow-y-hidden"
+  (click)="onCanvasClick()"
+>
   <ngx-graph
     class="graph-canvas h-full w-full bg-transparent"
-    [nodes]="nodes"
-    [links]="links"
+    [nodes]="nodes()"
+    [links]="links()"
     [layout]="layout"
-    [layoutSettings]="layoutSettings"
+    [layoutSettings]="layoutSettings()"
     [curve]="curve"
-    [view]="view"
+    [view]="view()"
     [panningEnabled]="false"
     [draggingEnabled]="false"
     [enableZoom]="false"
     [autoZoom]="false"
     [autoCenter]="false"
-    [panOffsetX]="panOffsetX"
-    [panOffsetY]="panOffsetY"
+    [panOffsetX]="panOffsetX()"
+    [panOffsetY]="panOffsetY()"
   >
     <ng-template #defsTemplate>
       <svg:marker
@@ -37,25 +41,64 @@
 
     <ng-template #nodeTemplate let-node>
       <svg:g class="graph-node" [attr.data-type]="node.data?.type">
-        <svg:rect
-          *ngIf="node.data?.popoverData"
-          x="0" y="0" width="120" height="130"
-          fill="transparent"
-          class="graph-node__hitbox"
-          (mouseenter)="onNodeHover($event, node)"
-          (mouseleave)="onNodeLeave()"
+        @if (node.data?.popoverData) {
+          <svg:rect
+            x="0"
+            y="0"
+            [attr.width]="metrics().nodeWidth"
+            [attr.height]="metrics().nodeHeight"
+            fill="transparent"
+            class="graph-node__hitbox"
+            role="button"
+            tabindex="0"
+            [attr.aria-label]="node.data?.label || 'Graph node'"
+            (mouseenter)="onNodeHover($event, node)"
+            (mouseleave)="onNodeLeave()"
+            (click)="onNodeSelect($event, node)"
+            (keydown)="onNodeKeydown($event, node)"
+          />
+        }
+
+        <svg:image
+          class="graph-node__icon pointer-events-none"
+          [attr.x]="metrics().nodeIconX"
+          [attr.y]="metrics().nodeIconY"
+          [attr.width]="metrics().nodeIconSize"
+          [attr.height]="metrics().nodeIconSize"
+          [attr.href]="getNodeIcon(node)"
         />
 
-        <svg:image class="graph-node__icon pointer-events-none" x="33.5" y="24" width="53" height="53" [attr.href]="getNodeIcon(node)" />
+        @if (node.data?.badge) {
+          <svg:g>
+            <svg:image
+              class="graph-node__badge-icon pointer-events-none"
+              [attr.x]="metrics().badgeX"
+              [attr.y]="metrics().badgeY"
+              [attr.width]="metrics().badgeSize"
+              [attr.height]="metrics().badgeSize"
+              [attr.href]="node.data?.badge"
+            />
+          </svg:g>
+        }
 
-        <svg:g *ngIf="node.data?.badge">
-          <svg:image class="graph-node__badge-icon pointer-events-none" x="70.5" y="19" width="25" height="25" [attr.href]="node.data?.badge" />
-        </svg:g>
-
-        <svg:text class="graph-node__label pointer-events-none" x="60" y="104" text-anchor="middle">{{ node.data?.label }}</svg:text>
-        <svg:text *ngIf="node.data?.tag" class="graph-node__tag pointer-events-none" x="60" y="122" text-anchor="middle">
-          {{ node.data?.tag }}
+        <svg:text
+          class="graph-node__label pointer-events-none"
+          [attr.x]="metrics().nodeWidth / 2"
+          [attr.y]="metrics().labelY"
+          text-anchor="middle"
+        >
+          {{ node.data?.label }}
         </svg:text>
+        @if (node.data?.tag) {
+          <svg:text
+            class="graph-node__tag pointer-events-none"
+            [attr.x]="metrics().nodeWidth / 2"
+            [attr.y]="metrics().tagY"
+            text-anchor="middle"
+          >
+            {{ node.data?.tag }}
+          </svg:text>
+        }
       </svg:g>
     </ng-template>
   </ngx-graph>
