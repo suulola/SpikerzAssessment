@@ -153,11 +153,11 @@
                 class="w-18 h-18 border-none bg-transparent text-gray-soft-700 cursor-pointer flex items-center justify-center shrink-0 p-0 transition-opacity duration-150 hover:opacity-70"
                 (click)="onLogout()"
               >
-                <lucide-icon
-                  [img]="icons.LogOut"
-                  [size]="18"
-                  class="text-gray-soft-700"
-                ></lucide-icon>
+                <img
+                  src="assets/icons/sidebar/logout.svg"
+                  alt="Logout"
+                  class="w-3.25 h-3.25 rtl:scale-x-[-1]"
+                />
               </button>
             </div>
 
@@ -181,12 +181,6 @@
                 }
               </div>
             </div>
-            <button
-              class="w-18 h-18 border-none bg-transparent text-gray-soft-700 cursor-pointer flex items-center justify-center shrink-0 p-0 transition-opacity duration-150 hover:opacity-70"
-              (click)="onLogout()"
-            >
-              <img src="assets/icons/sidebar/logout.svg" alt="Logout" class="w-3.25 h-3.25" />
-            </button>
           } @else {
             @if (profile().avatar) {
               <img
@@ -208,7 +202,7 @@
   </aside>
 
   <button
-    class="absolute top-7 right-0 translate-x-1/2 w-8 h-8 rounded-xl bg-green-800 border-3 border-gray-soft-50 shadow-drop-100 hidden md:flex items-center justify-center cursor-pointer transition-all duration-150 z-20 group-hover/sidebar-shell:opacity-100 group-hover/sidebar-shell:pointer-events-auto group-hover/sidebar-shell:scale-110 group-hover/sidebar-shell:shadow-drop-100"
+    class="absolute top-7 right-0 rtl:right-auto rtl:left-0 translate-x-1/2 rtl:-translate-x-1/2 w-8 h-8 rounded-xl bg-green-800 border-3 border-gray-soft-50 shadow-drop-100 hidden md:flex items-center justify-center cursor-pointer transition-all duration-150 z-20 group-hover/sidebar-shell:opacity-100 group-hover/sidebar-shell:pointer-events-auto group-hover/sidebar-shell:scale-110 group-hover/sidebar-shell:shadow-drop-100"
     [class.opacity-100]="!collapsed()"
     [class.pointer-events-auto]="!collapsed()"
     [class.opacity-0]="collapsed()"
@@ -217,7 +211,7 @@
     (click)="onToggle()"
   >
     <i
-      class="pi text-white text-sm"
+      class="pi text-white text-sm rtl:scale-x-[-1]"
       [class.pi-chevron-left]="!collapsed()"
       [class.pi-chevron-right]="collapsed()"
     ></i>

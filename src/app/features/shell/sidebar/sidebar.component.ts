@@ -5,6 +5,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { filter, map, startWith } from 'rxjs/operators';
 import { LucideAngularModule, LogOut, LucideIconData } from 'lucide-angular';
 import { SidebarMenuItem, SidebarProfile, SidebarIcon } from '@core/models';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-sidebar',
@@ -16,6 +17,15 @@ import { SidebarMenuItem, SidebarProfile, SidebarIcon } from '@core/models';
 })
 export class SidebarComponent {
   private readonly router = inject(Router);
+  private readonly translate = inject(TranslateService);
+  private readonly supportedLanguages = ['en', 'fr', 'he'] as const;
+  readonly languageOptions = [...this.supportedLanguages];
+  readonly currentLanguage = toSignal(
+    this.translate.onLangChange.pipe(map((event) => event.lang)),
+    {
+      initialValue: this.translate.currentLang || this.translate.defaultLang || 'en',
+    }
+  );
 
   private readonly currentRoute = toSignal(
     this.router.events.pipe(
@@ -34,7 +44,7 @@ export class SidebarComponent {
     },
     {
       id: 'inventory',
-      label: 'Inventory',
+      label: 'nav.inventory',
       icon: 'assets/icons/sidebar/inventory.svg',
       route: '/inventory',
     },
