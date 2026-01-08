@@ -17,11 +17,12 @@ import { GraphDomainStore } from '@core/state/graph-domain.store';
 import { GraphConfigurationService } from '@core/services/graph-configuration.service';
 import { PopoverPositioningService } from '@core/services/popover-positioning.service';
 import { type GraphNode, type GraphNodeKind, type GraphMetrics } from '@core/models';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-graph-visualization',
   standalone: true,
-  imports: [CommonModule, NgxGraphModule],
+  imports: [CommonModule, NgxGraphModule, TranslateModule],
   templateUrl: './graph-visualization.component.html',
   styleUrl: './graph-visualization.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

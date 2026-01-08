@@ -16,7 +16,7 @@
         >
           <div class="inline-flex items-center gap-2.5 px-2.5 py-0.5 bg-red-50 rounded-pill w-216">
             <span class="font-semibold text-red-700">
-              {{ selectedNode()?.popoverData?.title }}
+              {{ selectedNode()?.popoverData?.title || '' | translate }}
             </span>
           </div>
 
@@ -37,8 +37,8 @@
               class="mt-3.5 inline-flex items-center gap-2.5 px-1 py-0.5 bg-purple-50 rounded-pill w-fit max-w-full"
             >
               <span class="font-semibold text-purple-600 block truncate max-w-full">
-                {{ selectedNode()?.popoverData?.metadata?.label }}:
-                {{ selectedNode()?.popoverData?.metadata?.value }}
+                {{ selectedNode()?.popoverData?.metadata?.label || '' | translate }}:
+                {{ selectedNode()?.popoverData?.metadata?.value || '' }}
               </span>
             </div>
           }
@@ -79,21 +79,21 @@
                       @switch (item.textStyle) {
                         @case ('label') {
                           <span class="text-md font-semibold leading-104 text-gray-soft-700">
-                            {{ item.value }}
+                            {{ item.value || '' | translate }}
                           </span>
                         }
                         @case ('title') {
                           <span
                             class="text-base font-bold leading-146 tracking-base text-gray-soft-700"
                           >
-                            {{ item.value }}
+                            {{ item.value || '' | translate }}
                           </span>
                         }
                         @default {
                           <span
                             class="text-base font-bold leading-146 tracking-base text-gray-soft-700"
                           >
-                            {{ item.value }}
+                            {{ item.value || '' | translate }}
                           </span>
                         }
                       }
@@ -110,7 +110,7 @@
                         [class.bg-blue-50]="item.tone === 'blue'"
                         [class.text-blue-700]="item.tone === 'blue'"
                       >
-                        {{ item.value }}
+                        {{ item.value || '' | translate }}
                       </span>
                     }
                   }

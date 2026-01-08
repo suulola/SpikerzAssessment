@@ -9,7 +9,7 @@ import { SidebarMenuItem, SidebarProfile, SidebarIcon } from '@core/models';
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule, LucideAngularModule],
+  imports: [CommonModule, LucideAngularModule, TranslateModule],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -25,10 +25,10 @@ export class SidebarComponent {
     )
   );
   readonly menuItems = input<SidebarMenuItem[]>([
-    { id: 'dash', label: 'Dashboard', icon: 'assets/icons/dashboard.svg', route: '/dashboard' },
+    { id: 'dash', label: 'nav.dashboard', icon: 'assets/icons/dashboard.svg', route: '/dashboard' },
     {
       id: 'threat-scenarios',
-      label: 'Threat Scenarios',
+      label: 'nav.threatScenarios',
       icon: 'assets/icons/threat-scenarios.svg',
       route: '/threat-scenarios',
     },
@@ -40,36 +40,36 @@ export class SidebarComponent {
     },
     {
       id: 'vulnerabilities',
-      label: 'Vulnerabilities',
+      label: 'nav.vulnerabilities',
       icon: 'assets/icons/vulnerabilities.svg',
       route: '/vulnerabilities',
     },
     {
       id: 'integration',
-      label: 'Integration',
+      label: 'nav.integration',
       icon: 'assets/icons/integration.svg',
       route: '/integration',
     },
-    { id: 'policy', label: 'Policy', icon: 'assets/icons/policy.svg', route: '/policy' },
-    { id: 'report', label: 'Report', icon: 'assets/icons/report.svg', route: '/report' },
+    { id: 'policy', label: 'nav.policy', icon: 'assets/icons/policy.svg', route: '/policy' },
+    { id: 'report', label: 'nav.report', icon: 'assets/icons/report.svg', route: '/report' },
   ]);
   readonly secondaryMenuItems = input<SidebarMenuItem[]>([
     {
       id: 'settings',
-      label: 'Settings',
+      label: 'nav.settings',
       icon: 'assets/icons/sidebar/settings.svg',
       route: '/settings',
     },
     {
       id: 'notifications',
-      label: 'Notifications',
+      label: 'nav.notifications',
       icon: 'assets/icons/sidebar/notifications.svg',
       route: '/notifications',
     },
   ]);
   readonly profile = input<SidebarProfile>({
     name: 'John Doe',
-    role: 'Admin',
+    role: 'profile.role.admin',
     avatar: 'assets/icons/sidebar/avatar-default.svg',
   });
   readonly collapsed = input(false);
@@ -103,6 +103,12 @@ export class SidebarComponent {
 
   onLogout(): void {
     this.logout.emit();
+  }
+
+  setLanguage(lang: string): void {
+    if (this.supportedLanguages.includes(lang as (typeof this.supportedLanguages)[number])) {
+      this.translate.use(lang);
+    }
   }
 
   isMenuItemSelected(menuItemId: string): boolean {

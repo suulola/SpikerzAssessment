@@ -70,7 +70,7 @@ export class GraphDomainService {
       },
       {
         id: 'server-b',
-        label: 'Auth Service',
+        label: 'graph.nodes.authService',
         type: 'server',
         kind: 'server',
         popoverData: {
@@ -277,20 +277,20 @@ export class GraphDomainService {
     return [
       {
         id: '1',
-        title: 'Update firewall rules',
-        description: 'Review and update firewall rules to ensure proper security configuration.',
+        title: 'graph.remediation.updateFirewallRules.title',
+        description: 'graph.remediation.updateFirewallRules.description',
         priority: 'high',
       },
       {
         id: '2',
-        title: 'Enable logging',
-        description: 'Enable detailed logging for security monitoring and audit trails.',
+        title: 'graph.remediation.enableLogging.title',
+        description: 'graph.remediation.enableLogging.description',
         priority: 'medium',
       },
       {
         id: '3',
-        title: 'Configure rate limiting',
-        description: 'Implement rate limiting to prevent DDoS attacks.',
+        title: 'graph.remediation.configureRateLimiting.title',
+        description: 'graph.remediation.configureRateLimiting.description',
         priority: 'medium',
       },
     ];

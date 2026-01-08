@@ -60,7 +60,7 @@
             class="graph-node__hitbox"
             role="button"
             tabindex="0"
-            [attr.aria-label]="node.data?.label || 'Graph node'"
+            [attr.aria-label]="node.data?.label || 'graph.node.ariaLabel' | translate"
             (mouseenter)="onNodeHover($event, node)"
             (mouseleave)="onNodeLeave()"
             (click)="onNodeSelect($event, node)"
@@ -96,7 +96,7 @@
           [attr.y]="metrics().labelY"
           text-anchor="middle"
         >
-          {{ node.data?.label }}
+          {{ node.data?.label || '' | translate }}
         </svg:text>
         @if (node.data?.tag) {
           <svg:text

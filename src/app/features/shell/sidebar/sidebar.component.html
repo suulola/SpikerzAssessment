@@ -50,14 +50,14 @@
               @if (!collapsed()) {
                 <span
                   class="text-base font-normal tracking-base whitespace-nowrap transition-opacity duration-150"
-                  >{{ item.label }}</span
+                  >{{ item.label | translate }}</span
                 >
               }
               @if (collapsed()) {
                 <span
                   class="pointer-events-none absolute left-full top-1/2 -translate-y-1/2 opacity-0 group-hover/sidebar-item:opacity-100 transition-opacity duration-150 bg-green-50 rounded-full py-1 px-2.5 text-base font-normal tracking-base text-green-900 whitespace-nowrap ml-2 z-10 shadow-drop-100"
                 >
-                  {{ item.label }}
+                  {{ item.label | translate }}
                 </span>
               }
             </button>
@@ -101,14 +101,14 @@
               @if (!collapsed()) {
                 <span
                   class="text-base font-normal tracking-base whitespace-nowrap transition-opacity duration-150"
-                  >{{ item.label }}</span
+                  >{{ item.label | translate }}</span
                 >
               }
               @if (collapsed()) {
                 <span
                   class="pointer-events-none absolute left-full top-1/2 -translate-y-1/2 opacity-0 group-hover/sidebar-item:opacity-100 transition-opacity duration-150 bg-green-50 rounded-full py-1 px-2.5 text-base font-normal tracking-base text-green-900 whitespace-nowrap ml-2 z-10 shadow-drop-100"
                 >
-                  {{ item.label }}
+                  {{ item.label | translate }}
                 </span>
               }
             </button>
@@ -119,33 +119,66 @@
           <div class="w-full border-t border-gray-soft-10"></div>
         }
 
-        <div class="flex flex-row justify-between items-center gap-3 pr-1">
+        <div class="flex flex-col gap-3 pr-1">
           @if (!collapsed()) {
-            <div class="flex items-center gap-3">
-              @if (profile().avatar) {
-                <img
-                  [src]="profile().avatar"
-                  [alt]="profile().name"
-                  class="w-12 h-12 rounded-full object-cover shrink-0"
-                />
-              } @else {
-                <div
-                  class="w-12 h-12 rounded-full bg-green-700 text-white flex items-center justify-center font-bold text-base shrink-0"
-                >
-                  {{ getUserInitials() }}
+            <div class="flex items-center justify-between gap-3">
+              <div class="flex items-center gap-3">
+                @if (profile().avatar) {
+                  <img
+                    [src]="profile().avatar"
+                    [alt]="profile().name"
+                    class="w-12 h-12 rounded-full object-cover shrink-0"
+                  />
+                } @else {
+                  <div
+                    class="w-12 h-12 rounded-full bg-green-700 text-white flex items-center justify-center font-bold text-base shrink-0"
+                  >
+                    {{ getUserInitials() }}
+                  </div>
+                }
+                <div class="flex flex-col justify-center min-w-0 flex-1">
+                  <div
+                    class="text-base font-normal tracking-base whitespace-nowrap overflow-hidden text-ellipsis text-gray-soft-700"
+                  >
+                    {{ profile().name }}
+                  </div>
+                  <div
+                    class="text-base font-normal tracking-base whitespace-nowrap overflow-hidden text-ellipsis text-gray-soft-700"
+                  >
+                    {{ profile().role | translate }}
+                  </div>
                 </div>
-              }
-              <div class="flex flex-col justify-center min-w-0 flex-1">
-                <div
-                  class="text-base font-normal tracking-base whitespace-nowrap overflow-hidden text-ellipsis text-gray-soft-700"
-                >
-                  {{ profile().name }}
-                </div>
-                <div
-                  class="text-base font-normal tracking-base whitespace-nowrap overflow-hidden text-ellipsis text-gray-soft-700"
-                >
-                  {{ profile().role }}
-                </div>
+              </div>
+              <button
+                class="w-18 h-18 border-none bg-transparent text-gray-soft-700 cursor-pointer flex items-center justify-center shrink-0 p-0 transition-opacity duration-150 hover:opacity-70"
+                (click)="onLogout()"
+              >
+                <lucide-icon
+                  [img]="icons.LogOut"
+                  [size]="18"
+                  class="text-gray-soft-700"
+                ></lucide-icon>
+              </button>
+            </div>
+
+            <div class="flex flex-col gap-2">
+              <div
+                class="inline-flex w-full items-center rounded-full border border-gray-soft-50 bg-gray-soft-25 p-0.5 mt-2"
+                role="group"
+                [attr.aria-label]="'app.language' | translate"
+              >
+                @for (lang of languageOptions; track lang) {
+                  <button
+                    type="button"
+                    class="flex-1 rounded-full px-2.5 py-1 text-xs font-semibold uppercase tracking-base transition-colors duration-150"
+                    [class.bg-white]="currentLanguage() === lang"
+                    [class.text-green-700]="currentLanguage() === lang"
+                    [class.text-gray-soft-500]="currentLanguage() !== lang"
+                    (click)="setLanguage(lang)"
+                  >
+                    {{ lang }}
+                  </button>
+                }
               </div>
             </div>
             <button

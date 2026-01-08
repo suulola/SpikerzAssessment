@@ -1,0 +1,157 @@
+{
+  "app": {
+    "brand": "Spikerz",
+    "menu": {
+      "open": "Open menu"
+    },
+    "logoAlt": "App logo",
+    "language": "Language"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "threatScenarios": "Threat Scenarios",
+    "inventory": "Inventory",
+    "vulnerabilities": "Vulnerabilities",
+    "integration": "Integration",
+    "policy": "Policy",
+    "report": "Report",
+    "settings": "Settings",
+    "notifications": "Notifications"
+  },
+  "profile": {
+    "role": {
+      "admin": "Admin"
+    }
+  },
+  "placeholder": {
+    "title": "Coming soon",
+    "body": "Page will soon be available"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "body": "The page you’re looking for doesn’t exist.",
+    "back": "Back to vulnerabilities"
+  },
+  "graph": {
+    "attackPathOverview": "Attack Path Overview",
+    "assetsContextualRisk": "Assets & Contextual Risk",
+    "table": {
+      "asset": "Asset",
+      "contextualRisk": "Contextual Risk"
+    },
+    "pagination": {
+      "label": "Showing {{start}}-{{end}} of {{total}}",
+      "prev": "Previous page",
+      "next": "Next page"
+    },
+    "contextualRiskTitle": "Contextual Risk",
+    "node": {
+      "ariaLabel": "Graph node"
+    },
+    "risk": {
+      "critical": "Critical",
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
+    },
+    "nodes": {
+      "edgeGateway": "Edge Gateway",
+      "apiGateway": "API Gateway",
+      "authService": "Auth Service",
+      "customerDb": "CustomerDB",
+      "billingDb": "BillingDB"
+    },
+    "popover": {
+      "ingressAlerts": "Ingress Alerts",
+      "site": "Site",
+      "labels": {
+        "service": "Service:",
+        "publicApi": "Public API",
+        "ports": "Ports",
+        "policy": "Policy:",
+        "mfa": "MFA",
+        "enforced": "Enforced",
+        "ssoGateway": "SSO Gateway",
+        "hosts": "Hosts",
+        "region": "Region:",
+        "authCluster": "Auth Cluster",
+        "targets": "Targets",
+        "database": "Database:",
+        "customerRecords": "Customer Records",
+        "billingLedger": "Billing Ledger",
+        "pci": "PCI",
+        "encrypted": "Encrypted",
+        "billingCluster": "Billing Cluster"
+      }
+    },
+    "remediation": {
+      "updateFirewallRules": {
+        "title": "Update firewall rules",
+        "description": "Review and update firewall rules to ensure proper security configuration."
+      },
+      "enableLogging": {
+        "title": "Enable logging",
+        "description": "Enable detailed logging for security monitoring and audit trails."
+      },
+      "configureRateLimiting": {
+        "title": "Configure rate limiting",
+        "description": "Implement rate limiting to prevent DDoS attacks."
+      }
+    }
+  },
+  "vulnerability": {
+    "description": {
+      "title": "Description",
+      "body": "CVE-2024-6387 (regreSSHion) enables unauthenticated remote code execution against OpenSSH servers on glibc-based Linux. Our internet-facing SSH bastion is exposed on port 22 and matches the vulnerable version range."
+    },
+    "extra": {
+      "title": "Extra",
+      "body": "Exploit traffic was observed from multiple ASNs during the last 24 hours. Temporary mitigation is applied (LoginGraceTime 0, MaxStartups 10:30:60) while patch rollout is underway for production and staging."
+    },
+    "fields": {
+      "cve": "CVE",
+      "severity": "Severity",
+      "detected": "Detected",
+      "affectedAssets": "Affected assets",
+      "owner": "Owner",
+      "exploitAvailable": "Exploit available",
+      "lastScan": "Last scan"
+    },
+    "values": {
+      "severityCritical": "Critical",
+      "affectedAssets": "7 hosts",
+      "owner": "Platform Security",
+      "exploitYes": "Yes"
+    },
+    "remediation": {
+      "title": "Remediation steps"
+    }
+  },
+  "remediation": {
+    "icon": {
+      "sshServer": "SSH Server",
+      "bastion": "Bastion",
+      "firewall": "Firewall",
+      "edge": "Edge",
+      "sensor": "Sensor",
+      "siem": "SIEM"
+    },
+    "techniques": {
+      "techA": {
+        "title": "Emergency patch",
+        "short": "Upgrade OpenSSH to a fixed release (9.8p1 or vendor backport).",
+        "full": "Deploy the vendor-fixed OpenSSH build across all exposed hosts. Validate package signatures, restart sshd during the maintenance window, and confirm the running version with configuration drift checks."
+      },
+      "techB": {
+        "title": "Compensating controls",
+        "short": "Restrict SSH access to approved IP ranges and jump hosts.",
+        "full": "Apply temporary allowlists at the edge firewall and cloud security groups. Enforce MFA on the bastion, and disable password auth to reduce exposure while patching completes."
+      },
+      "techC": {
+        "title": "Monitoring and detection",
+        "short": "Add runtime detections for sshd anomalies and exploit attempts.",
+        "full": "Enable detailed SSH logs, alert on repeated pre-auth crashes, and monitor for abnormal session creation. Forward events to the SIEM and set high-severity alerts for SSH port scanning spikes."
+      }
+    }
+  }
+}

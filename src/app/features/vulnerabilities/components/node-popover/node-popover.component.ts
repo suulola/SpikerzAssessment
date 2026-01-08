@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { GraphStore } from '@core/state/graph.store';
 import { GraphNode, RemediationTechnique } from '@core/models';
 import { GraphDomainService } from '@core/services/graph-domain.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-node-popover',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslateModule],
   templateUrl: './node-popover.component.html',
   styleUrl: './node-popover.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

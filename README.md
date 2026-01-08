@@ -34,6 +34,14 @@ This project enforces tokenized values for spacing, colors, radii, and sizes.
 - Tailwind tokens are extended in `tailwind.config.js`.
 - Avoid hardcoded px in CSS/SCSS. Use tokens or Tailwind utilities instead.
 
+## Internationalization
+
+Translations are stored in `src/assets/i18n/` for English, French, and Hebrew.
+
+- `en.json`
+- `fr.json`
+- `he.json`
+
 ## Setup
 
 Install dependencies:

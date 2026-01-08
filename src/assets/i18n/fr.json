@@ -1,0 +1,157 @@
+{
+  "app": {
+    "brand": "Spikerz",
+    "menu": {
+      "open": "Ouvrir le menu"
+    },
+    "logoAlt": "Logo de l’application",
+    "language": "Langue"
+  },
+  "nav": {
+    "dashboard": "Tableau de bord",
+    "threatScenarios": "Scénarios de menace",
+    "inventory": "Inventaire",
+    "vulnerabilities": "Vulnérabilités",
+    "integration": "Intégration",
+    "policy": "Politique",
+    "report": "Rapport",
+    "settings": "Paramètres",
+    "notifications": "Notifications"
+  },
+  "profile": {
+    "role": {
+      "admin": "Administrateur"
+    }
+  },
+  "placeholder": {
+    "title": "Bientôt disponible",
+    "body": "La page sera bientôt disponible"
+  },
+  "notFound": {
+    "title": "Page introuvable",
+    "body": "La page que vous recherchez n’existe pas.",
+    "back": "Retour aux vulnérabilités"
+  },
+  "graph": {
+    "attackPathOverview": "Aperçu du chemin d’attaque",
+    "assetsContextualRisk": "Actifs et risque contextuel",
+    "table": {
+      "asset": "Actif",
+      "contextualRisk": "Risque contextuel"
+    },
+    "pagination": {
+      "label": "Affichage de {{start}} à {{end}} sur {{total}}",
+      "prev": "Page précédente",
+      "next": "Page suivante"
+    },
+    "contextualRiskTitle": "Risque contextuel",
+    "node": {
+      "ariaLabel": "Nœud du graphe"
+    },
+    "risk": {
+      "critical": "Critique",
+      "high": "Élevé",
+      "medium": "Moyen",
+      "low": "Faible"
+    },
+    "nodes": {
+      "edgeGateway": "Passerelle périphérique",
+      "apiGateway": "Passerelle API",
+      "authService": "Service d’authentification",
+      "customerDb": "BD clients",
+      "billingDb": "BD facturation"
+    },
+    "popover": {
+      "ingressAlerts": "Alertes d’entrée",
+      "site": "Site",
+      "labels": {
+        "service": "Service :",
+        "publicApi": "API publique",
+        "ports": "Ports",
+        "policy": "Politique :",
+        "mfa": "MFA",
+        "enforced": "Appliqué",
+        "ssoGateway": "Passerelle SSO",
+        "hosts": "Hôtes",
+        "region": "Région :",
+        "authCluster": "Cluster d’authentification",
+        "targets": "Cibles",
+        "database": "Base de données :",
+        "customerRecords": "Enregistrements clients",
+        "billingLedger": "Grand livre de facturation",
+        "pci": "PCI",
+        "encrypted": "Chiffré",
+        "billingCluster": "Cluster de facturation"
+      }
+    },
+    "remediation": {
+      "updateFirewallRules": {
+        "title": "Mettre à jour les règles du pare-feu",
+        "description": "Vérifier et mettre à jour les règles du pare-feu pour garantir une configuration sécurisée."
+      },
+      "enableLogging": {
+        "title": "Activer la journalisation",
+        "description": "Activer une journalisation détaillée pour la surveillance de sécurité et les audits."
+      },
+      "configureRateLimiting": {
+        "title": "Configurer le contrôle de débit",
+        "description": "Mettre en place un contrôle de débit pour prévenir les attaques DDoS."
+      }
+    }
+  },
+  "vulnerability": {
+    "description": {
+      "title": "Description",
+      "body": "CVE-2024-6387 (regreSSHion) permet une exécution de code à distance non authentifiée contre OpenSSH sur des Linux basés sur glibc. Notre bastion SSH exposé à Internet est accessible sur le port 22 et correspond à la plage de versions vulnérables."
+    },
+    "extra": {
+      "title": "Extra",
+      "body": "Du trafic d’exploitation a été observé depuis plusieurs ASN au cours des dernières 24 heures. Une mitigation temporaire est appliquée (LoginGraceTime 0, MaxStartups 10:30:60) pendant le déploiement du correctif en production et en staging."
+    },
+    "fields": {
+      "cve": "CVE",
+      "severity": "Gravité",
+      "detected": "Détecté",
+      "affectedAssets": "Actifs affectés",
+      "owner": "Propriétaire",
+      "exploitAvailable": "Exploit disponible",
+      "lastScan": "Dernière analyse"
+    },
+    "values": {
+      "severityCritical": "Critique",
+      "affectedAssets": "7 hôtes",
+      "owner": "Sécurité de la plateforme",
+      "exploitYes": "Oui"
+    },
+    "remediation": {
+      "title": "Étapes de remédiation"
+    }
+  },
+  "remediation": {
+    "icon": {
+      "sshServer": "Serveur SSH",
+      "bastion": "Bastion",
+      "firewall": "Pare-feu",
+      "edge": "Périmètre",
+      "sensor": "Capteur",
+      "siem": "SIEM"
+    },
+    "techniques": {
+      "techA": {
+        "title": "Correctif d’urgence",
+        "short": "Mettre à niveau OpenSSH vers une version corrigée (9.8p1 ou backport fournisseur).",
+        "full": "Déployer la version corrigée d’OpenSSH sur tous les hôtes exposés. Vérifier les signatures des paquets, redémarrer sshd durant la fenêtre de maintenance et confirmer la version active via des contrôles de dérive de configuration."
+      },
+      "techB": {
+        "title": "Contrôles compensatoires",
+        "short": "Restreindre l’accès SSH aux plages IP approuvées et aux bastions.",
+        "full": "Appliquer des listes d’autorisation temporaires au pare-feu et aux groupes de sécurité cloud. Imposer la MFA sur le bastion et désactiver l’authentification par mot de passe pour réduire l’exposition pendant le correctif."
+      },
+      "techC": {
+        "title": "Surveillance et détection",
+        "short": "Ajouter des détections d’anomalies sshd et de tentatives d’exploitation.",
+        "full": "Activer des journaux SSH détaillés, alerter sur les plantages pré-auth répétés et surveiller les créations de session anormales. Transmettre les événements au SIEM et définir des alertes de haute sévérité pour les pics de scan sur le port SSH."
+      }
+    }
+  }
+}

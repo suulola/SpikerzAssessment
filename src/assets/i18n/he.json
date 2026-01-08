@@ -1,0 +1,157 @@
+{
+  "app": {
+    "brand": "Spikerz",
+    "menu": {
+      "open": "פתח תפריט"
+    },
+    "logoAlt": "לוגו האפליקציה",
+    "language": "שפה"
+  },
+  "nav": {
+    "dashboard": "לוח בקרה",
+    "threatScenarios": "תרחישי איום",
+    "inventory": "מלאי",
+    "vulnerabilities": "חולשות",
+    "integration": "אינטגרציה",
+    "policy": "מדיניות",
+    "report": "דוח",
+    "settings": "הגדרות",
+    "notifications": "התראות"
+  },
+  "profile": {
+    "role": {
+      "admin": "מנהל"
+    }
+  },
+  "placeholder": {
+    "title": "בקרוב",
+    "body": "העמוד יהיה זמין בקרוב"
+  },
+  "notFound": {
+    "title": "העמוד לא נמצא",
+    "body": "העמוד שחיפשת אינו קיים.",
+    "back": "חזרה לחולשות"
+  },
+  "graph": {
+    "attackPathOverview": "סקירת מסלול תקיפה",
+    "assetsContextualRisk": "נכסים וסיכון הקשרי",
+    "table": {
+      "asset": "נכס",
+      "contextualRisk": "סיכון הקשרי"
+    },
+    "pagination": {
+      "label": "מציג {{start}}–{{end}} מתוך {{total}}",
+      "prev": "עמוד קודם",
+      "next": "עמוד הבא"
+    },
+    "contextualRiskTitle": "סיכון הקשרי",
+    "node": {
+      "ariaLabel": "צומת גרף"
+    },
+    "risk": {
+      "critical": "קריטי",
+      "high": "גבוה",
+      "medium": "בינוני",
+      "low": "נמוך"
+    },
+    "nodes": {
+      "edgeGateway": "שער קצה",
+      "apiGateway": "שער API",
+      "authService": "שירות אימות",
+      "customerDb": "מאגר לקוחות",
+      "billingDb": "מאגר חיוב"
+    },
+    "popover": {
+      "ingressAlerts": "התראות כניסה",
+      "site": "אתר",
+      "labels": {
+        "service": "שירות:",
+        "publicApi": "API ציבורי",
+        "ports": "פורטים",
+        "policy": "מדיניות:",
+        "mfa": "אימות רב-שלבי",
+        "enforced": "מופעל",
+        "ssoGateway": "שער SSO",
+        "hosts": "מארחים",
+        "region": "אזור:",
+        "authCluster": "אשכול אימות",
+        "targets": "יעדים",
+        "database": "מסד נתונים:",
+        "customerRecords": "רשומות לקוחות",
+        "billingLedger": "ספר חשבונות חיוב",
+        "pci": "PCI",
+        "encrypted": "מוצפן",
+        "billingCluster": "אשכול חיוב"
+      }
+    },
+    "remediation": {
+      "updateFirewallRules": {
+        "title": "עדכון כללי חומת אש",
+        "description": "לבדוק ולעדכן את כללי חומת האש כדי להבטיח תצורת אבטחה תקינה."
+      },
+      "enableLogging": {
+        "title": "הפעלת רישום",
+        "description": "להפעיל רישום מפורט לצורכי ניטור אבטחה ונתיבי ביקורת."
+      },
+      "configureRateLimiting": {
+        "title": "הגדרת הגבלת קצב",
+        "description": "להטמיע הגבלת קצב כדי למנוע מתקפות DDoS."
+      }
+    }
+  },
+  "vulnerability": {
+    "description": {
+      "title": "תיאור",
+      "body": "CVE-2024-6387 (regreSSHion) מאפשר ביצוע קוד מרחוק ללא אימות כנגד OpenSSH בשרתי Linux מבוססי glibc. בסטיון ה-SSH החשוף לאינטרנט פתוח בפורט 22 ותואם לטווח הגרסאות הפגיע."
+    },
+    "extra": {
+      "title": "נוסף",
+      "body": "תעבורת ניצול נצפתה ממספר ASN ב-24 השעות האחרונות. הוחלה הקלה זמנית (LoginGraceTime 0, MaxStartups 10:30:60) בזמן פריסת התיקון בסביבות פרודקשן וסטייג'ינג."
+    },
+    "fields": {
+      "cve": "CVE",
+      "severity": "חומרה",
+      "detected": "זוהה",
+      "affectedAssets": "נכסים מושפעים",
+      "owner": "בעלים",
+      "exploitAvailable": "ניצול זמין",
+      "lastScan": "סריקה אחרונה"
+    },
+    "values": {
+      "severityCritical": "קריטי",
+      "affectedAssets": "7 מארחים",
+      "owner": "אבטחת פלטפורמה",
+      "exploitYes": "כן"
+    },
+    "remediation": {
+      "title": "צעדי תיקון"
+    }
+  },
+  "remediation": {
+    "icon": {
+      "sshServer": "שרת SSH",
+      "bastion": "בסטיון",
+      "firewall": "חומת אש",
+      "edge": "קצה",
+      "sensor": "חיישן",
+      "siem": "SIEM"
+    },
+    "techniques": {
+      "techA": {
+        "title": "תיקון חירום",
+        "short": "שדרוג OpenSSH לגרסה מתוקנת (9.8p1 או backport של הספק).",
+        "full": "להפיץ את גרסת OpenSSH המתוקנת לכל המארחים החשופים. לאמת חתימות חבילות, לאתחל sshd בזמן חלון תחזוקה ולאשר את הגרסה הרצה באמצעות בדיקות סטייה בהגדרות."
+      },
+      "techB": {
+        "title": "בקרות מפצות",
+        "short": "הגבלת גישת SSH לטווחי IP מאושרים ולבסטיונים.",
+        "full": "להחיל רשימות מאושרות זמניות בחומת האש ובקבוצות האבטחה בענן. לאכוף אימות רב-שלבי בבסטיון ולבטל אימות בסיסמה כדי לצמצם חשיפה בזמן התיקון."
+      },
+      "techC": {
+        "title": "ניטור וזיהוי",
+        "short": "הוספת זיהויים לחריגות sshd וניסיונות ניצול.",
+        "full": "להפעיל רישום SSH מפורט, להתריע על קריסות קדם-אימות חוזרות ולנטר יצירת סשנים חריגה. להעביר אירועים ל-SIEM ולהגדיר התראות חומרה גבוהה לסריקות חריגות לפורט SSH."
+      }
+    }
+  }
+}

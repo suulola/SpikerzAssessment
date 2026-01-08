@@ -1,11 +1,12 @@
 import { Component, input, signal, computed, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { type RemediationIconConfig, type RemediationTechniqueData } from '@core/models';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-remediation-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslateModule],
   templateUrl: './remediation-card.component.html',
   styleUrl: './remediation-card.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -20,12 +21,12 @@ export class RemediationCardComponent {
       sublabel: 'Server',
     },
     B: {
-      label: 'Firewall',
-      sublabel: 'Edge',
+      label: 'remediation.icon.firewall',
+      sublabel: 'remediation.icon.edge',
     },
     C: {
-      label: 'Sensor',
-      sublabel: 'SIEM',
+      label: 'remediation.icon.sensor',
+      sublabel: 'remediation.icon.siem',
     },
   };
 
