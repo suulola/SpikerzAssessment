@@ -3,14 +3,13 @@ import { CommonModule } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { filter, map, startWith } from 'rxjs/operators';
-import { LucideAngularModule, LogOut, LucideIconData } from 'lucide-angular';
 import { SidebarMenuItem, SidebarProfile, SidebarIcon } from '@core/models';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule, LucideAngularModule, TranslateModule],
+  imports: [CommonModule, TranslateModule],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -88,20 +87,12 @@ export class SidebarComponent {
   readonly toggle = output<void>();
   readonly logout = output<void>();
 
-  readonly icons = {
-    LogOut,
-  };
-
   selectedMenuItemId = computed(() => {
     const currentUrl = this.currentRoute();
     const allMenuItems = [...this.menuItems(), ...this.secondaryMenuItems()];
     const matchedItem = allMenuItems.find((item) => currentUrl?.startsWith(item.route || ''));
     return matchedItem?.id || null;
   });
-
-  isLucideIcon(icon: SidebarIcon): icon is LucideIconData {
-    return typeof icon !== 'string';
-  }
 
   onMenuItemClick(menuItem: SidebarMenuItem): void {
     this.menuItemClick.emit(menuItem);

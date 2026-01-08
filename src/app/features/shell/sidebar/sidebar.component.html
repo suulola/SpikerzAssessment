@@ -28,25 +28,14 @@
               [class.md:w-218]="!collapsed()"
               (click)="onMenuItemClick(item)"
             >
-              @if (isLucideIcon(item.icon)) {
-                <lucide-icon
-                  [img]="item.icon"
-                  [size]="20"
-                  class="shrink-0 transition-colors duration-150"
-                  [class.text-green-900]="isMenuItemSelected(item.id)"
-                  [class.text-gray-soft-300]="!isMenuItemSelected(item.id)"
-                  [class.group-hover/sidebar-item:text-green-900]="!isMenuItemSelected(item.id)"
-                ></lucide-icon>
-              } @else {
-                <span
-                  class="sidebar-icon w-5 h-5 shrink-0"
-                  [class.text-green-900]="isMenuItemSelected(item.id)"
-                  [class.text-gray-soft-300]="!isMenuItemSelected(item.id)"
-                  [class.group-hover/sidebar-item:text-green-900]="!isMenuItemSelected(item.id)"
-                  [style.--sidebar-icon]="'url(' + item.icon + ')'"
-                  aria-hidden="true"
-                ></span>
-              }
+              <span
+                class="sidebar-icon w-5 h-5 shrink-0"
+                [class.text-green-900]="isMenuItemSelected(item.id)"
+                [class.text-gray-soft-300]="!isMenuItemSelected(item.id)"
+                [class.group-hover/sidebar-item:text-green-900]="!isMenuItemSelected(item.id)"
+                [style.--sidebar-icon]="'url(' + item.icon + ')'"
+                aria-hidden="true"
+              ></span>
               @if (!collapsed()) {
                 <span
                   class="text-base font-normal tracking-base whitespace-nowrap transition-opacity duration-150"
@@ -79,25 +68,14 @@
               [class.md:w-218]="!collapsed()"
               (click)="onMenuItemClick(item)"
             >
-              @if (isLucideIcon(item.icon)) {
-                <lucide-icon
-                  [img]="item.icon"
-                  [size]="20"
-                  class="shrink-0 transition-colors duration-150"
-                  [class.text-green-900]="isMenuItemSelected(item.id)"
-                  [class.text-gray-soft-300]="!isMenuItemSelected(item.id)"
-                  [class.group-hover/sidebar-item:text-green-900]="!isMenuItemSelected(item.id)"
-                ></lucide-icon>
-              } @else {
-                <span
-                  class="sidebar-icon w-5 h-5 shrink-0"
-                  [class.text-green-900]="isMenuItemSelected(item.id)"
-                  [class.text-gray-soft-300]="!isMenuItemSelected(item.id)"
-                  [class.group-hover/sidebar-item:text-green-900]="!isMenuItemSelected(item.id)"
-                  [style.--sidebar-icon]="'url(' + item.icon + ')'"
-                  aria-hidden="true"
-                ></span>
-              }
+              <span
+                class="sidebar-icon w-5 h-5 shrink-0"
+                [class.text-green-900]="isMenuItemSelected(item.id)"
+                [class.text-gray-soft-300]="!isMenuItemSelected(item.id)"
+                [class.group-hover/sidebar-item:text-green-900]="!isMenuItemSelected(item.id)"
+                [style.--sidebar-icon]="'url(' + item.icon + ')'"
+                aria-hidden="true"
+              ></span>
               @if (!collapsed()) {
                 <span
                   class="text-base font-normal tracking-base whitespace-nowrap transition-opacity duration-150"

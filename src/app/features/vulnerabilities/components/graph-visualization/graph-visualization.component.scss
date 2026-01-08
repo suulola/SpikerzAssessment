@@ -31,14 +31,14 @@
 
 .graph-container {
   height: fit-content;
-  touch-action: pan-x;
+  touch-action: pan-y;
 }
 
 .graph-canvas {
   width: 100%;
   min-width: var(--graph-min-width);
   height: fit-content;
-  touch-action: pan-x;
+  touch-action: pan-y;
   overscroll-behavior-x: contain;
   overscroll-behavior-y: none;
 }

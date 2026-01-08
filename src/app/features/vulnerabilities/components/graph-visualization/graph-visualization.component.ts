@@ -10,7 +10,13 @@ import {
   signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgxGraphModule, PanningAxis, type Node, type Edge } from '@swimlane/ngx-graph';
+import {
+  GraphComponent,
+  NgxGraphModule,
+  PanningAxis,
+  type Edge,
+  type Node,
+} from '@swimlane/ngx-graph';
 import { curveBundle } from 'd3-shape';
 import { GraphStore } from '@core/state/graph.store';
 import { GraphDomainStore } from '@core/state/graph-domain.store';
@@ -34,9 +40,11 @@ export class GraphVisualizationComponent implements AfterViewInit, OnDestroy {
   private readonly popoverPositioning = inject(PopoverPositioningService);
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   @ViewChild('graphContainer', { static: true }) graphContainer?: ElementRef<HTMLDivElement>;
+  @ViewChild(GraphComponent) private graphComponent?: GraphComponent;
   private resizeObserver?: ResizeObserver;
   private viewportQuery?: MediaQueryList;
   private viewportListener?: (event: MediaQueryListEvent) => void;
+  private panClampRafId: number | null = null;
   private hoverTimeout: ReturnType<typeof setTimeout> | null = null;
   private leaveTimeout: ReturnType<typeof setTimeout> | null = null;
   readonly curve = curveBundle.beta(1);
@@ -81,6 +89,8 @@ export class GraphVisualizationComponent implements AfterViewInit, OnDestroy {
 
   readonly metrics = this.graphMetrics;
   private readonly graphSize = signal({ width: 0, height: 0 });
+  private readonly panOffsetXSignal = signal(0);
+  private readonly panOffsetYSignal = signal(0);
 
   private readonly graphData = this.graphDomainStore.graphData;
 
@@ -124,8 +134,12 @@ export class GraphVisualizationComponent implements AfterViewInit, OnDestroy {
     return [Math.max(width, minWidth), Math.max(height, minHeight)];
   });
 
-  readonly panOffsetX = computed(() => this.graphMetrics().panOffsetX);
-  readonly panOffsetY = computed(() => (this.isCompact() ? 0 : this.graphMetrics().panOffsetY));
+  readonly panOffsetX = computed(() =>
+    this.isCompact() ? this.panOffsetXSignal() : this.graphMetrics().panOffsetX
+  );
+  readonly panOffsetY = computed(() =>
+    this.isCompact() ? this.panOffsetYSignal() : this.graphMetrics().panOffsetY
+  );
 
   protected cacheLinkPoints(link: Edge): string {
     if (!this.isBranchArrow(link)) {
@@ -218,6 +232,7 @@ export class GraphVisualizationComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     this.updateMetrics();
     this.setupViewportQuery();
+    this.startPanClampLoop();
     const container = this.graphContainer?.nativeElement;
     if (!container) {
       return;
@@ -241,6 +256,7 @@ export class GraphVisualizationComponent implements AfterViewInit, OnDestroy {
     if (this.viewportQuery && this.viewportListener) {
       this.viewportQuery.removeEventListener('change', this.viewportListener);
     }
+    this.stopPanClampLoop();
   }
 
   private setupViewportQuery(): void {
@@ -250,6 +266,13 @@ export class GraphVisualizationComponent implements AfterViewInit, OnDestroy {
     const query = window.matchMedia('(max-width: 1124px)');
     const update = (event: MediaQueryList | MediaQueryListEvent) => {
       this.isCompact.set(event.matches);
+      if (event.matches) {
+        this.startPanClampLoop();
+      } else {
+        const metrics = this.graphMetrics();
+        this.panOffsetXSignal.set(metrics.panOffsetX);
+        this.panOffsetYSignal.set(metrics.panOffsetY);
+      }
     };
     update(query);
     const listener = (event: MediaQueryListEvent) => update(event);
@@ -260,6 +283,45 @@ export class GraphVisualizationComponent implements AfterViewInit, OnDestroy {
 
   protected onCanvasClick(): void {
     this.graphStore.clearSelection();
+  }
+
+  private clampPanX(rawPan: number): number {
+    return Math.min(280, Math.max(-595, rawPan));
+  }
+
+  private clampPanY(rawPan: number): number {
+    return Math.min(122, Math.max(-82, rawPan));
+  }
+
+  private startPanClampLoop(): void {
+    if (this.panClampRafId !== null) {
+      return;
+    }
+    const tick = () => {
+      const graphComponent = this.graphComponent;
+      if (graphComponent) {
+        const rawX = graphComponent.transformationMatrix.e;
+        const rawY = graphComponent.transformationMatrix.f;
+        const clampedX = this.clampPanX(rawX);
+        const clampedY = this.clampPanY(rawY);
+
+        if (Math.abs(clampedX - rawX) > 0.5 || Math.abs(clampedY - rawY) > 0.5) {
+          graphComponent.transformationMatrix.e = clampedX;
+          graphComponent.transformationMatrix.f = clampedY;
+          graphComponent.updateTransform();
+        }
+      }
+      this.panClampRafId = window.requestAnimationFrame(tick);
+    };
+    this.panClampRafId = window.requestAnimationFrame(tick);
+  }
+
+  private stopPanClampLoop(): void {
+    if (this.panClampRafId === null) {
+      return;
+    }
+    window.cancelAnimationFrame(this.panClampRafId);
+    this.panClampRafId = null;
   }
 
   protected onNodeSelect(event: MouseEvent | KeyboardEvent, node: Node): void {
@@ -381,7 +443,7 @@ export class GraphVisualizationComponent implements AfterViewInit, OnDestroy {
     const styles = getComputedStyle(this.host.nativeElement);
     const readVar = (name: string) => Number.parseFloat(styles.getPropertyValue(name)) || 0;
 
-    this.graphMetrics.set({
+    const nextMetrics = {
       minWidth: readVar('--graph-min-width'),
       minHeight: readVar('--graph-min-height'),
       nodeWidth: readVar('--graph-node-width'),
@@ -405,6 +467,9 @@ export class GraphVisualizationComponent implements AfterViewInit, OnDestroy {
       popoverMinHeight: readVar('--popover-min-height'),
       popoverOffsetY: readVar('--popover-offset-y'),
       popoverViewportPadding: readVar('--popover-viewport-padding'),
-    });
+    };
+    this.graphMetrics.set(nextMetrics);
+    this.panOffsetXSignal.set(nextMetrics.panOffsetX);
+    this.panOffsetYSignal.set(nextMetrics.panOffsetY);
   }
 }

@@ -1,5 +1,3 @@
-import { LucideIconData } from 'lucide-angular';
-
 export type SidebarAssetIcon =
   | 'assets/icons/dashboard.svg'
   | 'assets/icons/threat-scenarios.svg'
@@ -11,7 +9,7 @@ export type SidebarAssetIcon =
   | 'assets/icons/sidebar/notifications.svg'
   | 'assets/icons/sidebar/inventory.svg';
 
-export type SidebarIcon = SidebarAssetIcon | LucideIconData;
+export type SidebarIcon = SidebarAssetIcon;
 
 export interface SidebarMenuItem {
   id: string;
