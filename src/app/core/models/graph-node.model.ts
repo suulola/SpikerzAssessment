@@ -29,6 +29,7 @@ export interface NodePopoverData {
   readonly header?: {
     readonly icon: string;
     readonly title: string;
+    readonly subtitle?: string;
   };
   readonly rows?: readonly PopoverRow[];
 }

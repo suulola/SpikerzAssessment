@@ -22,55 +22,54 @@ export class GraphDomainService {
     const nodes: GraphNode[] = [
       {
         id: 'alert',
-        label: 'Edge Gateway',
+        label: 'Loremipsumm',
         type: 'alert',
         kind: 'perimeter',
-        tag: 'FW',
         popoverData: {
           variant: this.graphConfig.getPopoverVariant('perimeter'),
-          title: 'Ingress Alerts',
+          title: 'Lorem Ipsum Dolor Sit',
           vulnerabilities: [
-            'CVE-2024-3094',
-            'CVE-2023-46805',
-            'CVE-2023-34362',
-            'CVE-2024-3400',
-            'CVE-2023-38408',
-            'CVE-2023-44487'
+            '1.2.3.4',
+            '1.2.3.4',
+            '1.2.3.4',
+            '1.2.3.4',
+            '1.2.3.4',
+            '1.2.3.4'
           ],
           metadata: {
-            label: 'Site',
-            value: 'edge-ams-01'
+            label: 'Lorem',
+            value: '1.2.3.4'
           }
         } as NodePopoverData
       },
       {
         id: 'server-a',
-        label: 'API Gateway',
+        label: 'Loremipsu',
         type: 'server',
         kind: 'server',
         popoverData: {
           variant: this.graphConfig.getPopoverVariant('server'),
           header: {
             icon: 'assets/icons/graph/node-server.svg',
-            title: 'ApiGw-01'
+            title: 'Loremipsu'
           },
           rows: [
             {
               gap: 'tight',
               items: [
                 { type: 'icon', icon: 'assets/icons/popover/receipt-text.svg' },
-                { type: 'text', value: 'Service:', textStyle: 'title' },
-                { type: 'text', value: 'Public API', textStyle: 'title' },
-                { type: 'chip', value: '10.10.12.14', tone: 'purple' }
+                { type: 'text', value: 'Lorem:', textStyle: 'title' },
+                { type: 'text', value: 'Loremipsum Loremipsum', textStyle: 'title' },
+                { type: 'chip', value: '1.2.3.4', tone: 'purple' }
               ]
             },
             {
               gap: 'tight',
               items: [
-                { type: 'chip', value: '10.10.12.14', tone: 'purple' },
-                { type: 'text', value: 'Ports', textStyle: 'title' },
-                { type: 'chip', value: '443', tone: 'purple' },
-                { type: 'chip', value: '8443', tone: 'purple' }
+                { type: 'chip', value: '1.2.3.4', tone: 'purple' },
+                { type: 'text', value: 'Loremipsum', textStyle: 'title' },
+                { type: 'chip', value: '1.2.3.4', tone: 'purple' },
+                { type: 'chip', value: '1.2.3.4', tone: 'purple' }
               ]
             }
           ]
@@ -85,46 +84,25 @@ export class GraphDomainService {
           variant: this.graphConfig.getPopoverVariant('server'),
           header: {
             icon: 'assets/icons/graph/node-server.svg',
-            title: 'AuthSrv-02'
+            title: 'Loremipsu'
           },
           rows: [
             {
               gap: 'tight',
               items: [
                 { type: 'icon', icon: 'assets/icons/popover/receipt-text.svg' },
-                { type: 'text', value: 'Policy:', textStyle: 'title' },
-                { type: 'chip', value: 'MFA', tone: 'yellow' },
-                { type: 'chip', value: 'Enforced', tone: 'green' },
-                { type: 'text', value: 'SSO Gateway', textStyle: 'title' }
+                { type: 'text', value: 'Lorem:', textStyle: 'title' },
+                { type: 'text', value: 'Loremipsum Loremipsum', textStyle: 'title' },
+                { type: 'chip', value: '1.2.3.4', tone: 'purple' }
               ]
             },
             {
               gap: 'tight',
               items: [
-                { type: 'chip', value: '10.10.22.21', tone: 'purple' },
-                { type: 'text', value: 'Hosts', textStyle: 'title' },
-                { type: 'chip', value: '10.10.22.22', tone: 'purple' },
-                { type: 'chip', value: '10.10.22.23', tone: 'purple' },
-                { type: 'chip', value: 'ALB-2A7B', tone: 'blue' }
-              ]
-            },
-            {
-              gap: 'tight',
-              items: [
-                { type: 'icon', icon: 'assets/icons/popover/receipt-text.svg' },
-                { type: 'text', value: 'Region:', textStyle: 'title' },
-                { type: 'chip', value: 'us-east-1', tone: 'yellow' },
-                { type: 'text', value: 'Auth Cluster', textStyle: 'title' }
-              ]
-            },
-            {
-              gap: 'tight',
-              items: [
-                { type: 'chip', value: '10.10.22.21', tone: 'purple' },
-                { type: 'chip', value: '10.10.22.22', tone: 'purple' },
-                { type: 'text', value: 'Targets', textStyle: 'title' },
-                { type: 'chip', value: '10.10.22.23', tone: 'purple' },
-                { type: 'chip', value: '10.10.22.24', tone: 'purple' }
+                { type: 'chip', value: '1.2.3.4', tone: 'purple' },
+                { type: 'text', value: 'Loremipsum', textStyle: 'title' },
+                { type: 'chip', value: '1.2.3.4', tone: 'purple' },
+                { type: 'chip', value: '1.2.3.4', tone: 'purple' }
               ]
             }
           ]
@@ -132,34 +110,32 @@ export class GraphDomainService {
       },
       {
         id: 'endpoint-primary',
-        label: 'CustomerDB',
+        label: 'Loremipsumdolorsit',
         type: 'endpoint',
         kind: 'endpoint',
-        tag: '10.10.31.10',
+        tag: '192.168.1.1',
         icon: 'assets/icons/graph/popover-endpoint.svg',
         popoverData: {
           variant: this.graphConfig.getPopoverVariant('endpoint'),
           header: {
             icon: 'assets/icons/graph/popover-endpoint.svg',
-            title: 'CustomerDB'
+            title: 'Loremipsumdolorsit',
+            subtitle: '192.168.1.1'
           },
           rows: [
             {
               gap: 'tight',
               items: [
                 { type: 'icon', icon: 'assets/icons/popover/receipt-text.svg' },
-                { type: 'text', value: 'Database:', textStyle: 'title' },
-                { type: 'text', value: 'Customer Records', textStyle: 'title' },
-                { type: 'chip', value: '10.10.31.10', tone: 'purple' }
+                { type: 'text', value: 'Lorem:', textStyle: 'title' },
+                { type: 'chip', value: 'Lorem "ipsum"', tone: 'yellow' }
               ]
             },
             {
               gap: 'tight',
               items: [
-                { type: 'chip', value: '10.10.31.10', tone: 'purple' },
-                { type: 'text', value: 'Ports', textStyle: 'title' },
-                { type: 'chip', value: '5432', tone: 'purple' },
-                { type: 'chip', value: '6432', tone: 'purple' }
+                { type: 'text', value: 'Loremipsum', textStyle: 'title' },
+                { type: 'chip', value: 'lorem 1234,5678', tone: 'blue' }
               ]
             }
           ]
@@ -167,55 +143,32 @@ export class GraphDomainService {
       },
       {
         id: 'endpoint-secondary',
-        label: 'BillingDB',
+        label: 'Loremipsumdolorsit002',
         type: 'endpoint',
         kind: 'endpoint',
-        tag: '10.10.41.20',
+        tag: '192.168.1.2',
         icon: 'assets/icons/graph/popover-endpoint.svg',
         popoverData: {
           variant: this.graphConfig.getPopoverVariant('endpoint'),
           header: {
             icon: 'assets/icons/graph/popover-endpoint.svg',
-            title: 'BillingDB'
+            title: 'Loremipsumdolorsit002',
+            subtitle: '192.168.1.2'
           },
           rows: [
             {
               gap: 'tight',
               items: [
                 { type: 'icon', icon: 'assets/icons/popover/receipt-text.svg' },
-                { type: 'text', value: 'Policy:', textStyle: 'title' },
-                { type: 'chip', value: 'PCI', tone: 'yellow' },
-                { type: 'chip', value: 'Encrypted', tone: 'green' },
-                { type: 'text', value: 'Billing Ledger', textStyle: 'title' }
+                { type: 'text', value: 'Lorem:', textStyle: 'title' },
+                { type: 'chip', value: 'Lorem "ipsum"', tone: 'yellow' }
               ]
             },
             {
               gap: 'tight',
               items: [
-                { type: 'chip', value: '10.10.41.20', tone: 'purple' },
-                { type: 'text', value: 'Hosts', textStyle: 'title' },
-                { type: 'chip', value: '10.10.41.21', tone: 'purple' },
-                { type: 'chip', value: '10.10.41.22', tone: 'purple' },
-                { type: 'chip', value: 'LB-7C2F', tone: 'blue' }
-              ]
-            },
-            {
-              gap: 'tight',
-              items: [
-                { type: 'icon', icon: 'assets/icons/popover/receipt-text.svg' },
-                { type: 'text', value: 'Region:', textStyle: 'title' },
-                { type: 'chip', value: 'eu-west-1', tone: 'yellow' },
-                { type: 'text', value: 'Billing Cluster', textStyle: 'title' }
-              ]
-            },
-            {
-              gap: 'tight',
-              items: [
-                { type: 'chip', value: '10.10.41.20', tone: 'purple' },
-                { type: 'chip', value: '10.10.41.21', tone: 'purple' },
-                { type: 'text', value: 'Targets', textStyle: 'title' },
-                { type: 'chip', value: '10.10.41.22', tone: 'purple' },
-                { type: 'chip', value: '10.10.41.23', tone: 'purple' }
+                { type: 'text', value: 'Loremipsum', textStyle: 'title' },
+                { type: 'chip', value: 'lorem 1234,5678', tone: 'blue' }
               ]
             }
           ]
@@ -237,13 +190,13 @@ export class GraphDomainService {
     const rows: AssetRiskRow[] = [
       {
         icon: 'assets/icons/graph/asset-server.svg',
-        name: 'app-api-01',
+        name: 'Loremipsumdolorsit',
         ip: '192.168.1.1',
         risk: 'Critical'
       },
       {
         icon: 'assets/icons/graph/asset-server.svg',
-        name: 'app-api-02',
+        name: 'Loremipsumdolorsit002',
         ip: '192.168.1.2',
         risk: 'Critical'
       },

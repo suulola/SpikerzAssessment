@@ -10,7 +10,7 @@ import {
   signal
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgxGraphModule, type Node, type Edge } from '@swimlane/ngx-graph';
+import { NgxGraphModule, PanningAxis, type Node, type Edge } from '@swimlane/ngx-graph';
 import { curveBundle } from 'd3-shape';
 import { GraphStore } from '@core/state/graph.store';
 import { GraphDomainStore } from '@core/state/graph-domain.store';
@@ -34,9 +34,23 @@ export class GraphVisualizationComponent implements AfterViewInit, OnDestroy {
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   @ViewChild('graphContainer', { static: true }) graphContainer?: ElementRef<HTMLDivElement>;
   private resizeObserver?: ResizeObserver;
+  private viewportQuery?: MediaQueryList;
+  private viewportListener?: (event: MediaQueryListEvent) => void;
   private hoverTimeout: ReturnType<typeof setTimeout> | null = null;
   private leaveTimeout: ReturnType<typeof setTimeout> | null = null;
   readonly curve = curveBundle.beta(1);
+  protected readonly panningAxis = PanningAxis.Horizontal;
+  protected readonly isCompact = signal(false);
+  private readonly branchArrowPrimaryId = 'server-b-endpoint-primary';
+  private readonly branchArrowSecondaryId = 'server-b-endpoint-secondary';
+  private readonly branchArrowWidth = 208;
+  private readonly branchArrowHeight = 120;
+  private readonly branchArrowTopTip = 2.165;
+  private readonly branchArrowBottomTip = 106.883;
+  private readonly straightArrowHeadWidth = 3.75;
+  private readonly straightArrowHeadHeight = 4.33;
+  private readonly straightArrowLineThickness = 0.75;
+  private readonly branchLinkPoints = new Map<string, { x: number; y: number }[]>();
 
   private readonly graphMetrics = signal<GraphMetrics>({
     minWidth: 0,
@@ -110,7 +124,79 @@ export class GraphVisualizationComponent implements AfterViewInit, OnDestroy {
   });
 
   readonly panOffsetX = computed(() => this.graphMetrics().panOffsetX);
-  readonly panOffsetY = computed(() => this.graphMetrics().panOffsetY);
+  readonly panOffsetY = computed(() => (this.isCompact() ? 0 : this.graphMetrics().panOffsetY));
+
+  protected cacheLinkPoints(link: Edge): string {
+    if (!this.isBranchArrow(link)) {
+      return '';
+    }
+    const points = (link as Edge & { points?: { x: number; y: number }[] }).points;
+    if (points && points.length) {
+      this.branchLinkPoints.set(link.id ?? '', points);
+    }
+    return '';
+  }
+
+  protected isBranchArrow(link: Edge): boolean {
+    return link.id === this.branchArrowPrimaryId || link.id === this.branchArrowSecondaryId;
+  }
+
+  protected shouldRenderBranchArrow(link: Edge): boolean {
+    return link.id === this.branchArrowPrimaryId;
+  }
+
+  protected getStraightArrowPath(link: Edge): string | null {
+    const points = (link as Edge & { points?: { x: number; y: number }[] }).points;
+    if (!points || points.length < 2) {
+      return null;
+    }
+
+    const start = points[0];
+    const end = points[points.length - 1];
+    const centerY = (start.y + end.y) / 2;
+    const arrowHalfHeight = this.straightArrowHeadHeight / 2;
+    const lineHalfThickness = this.straightArrowLineThickness / 2;
+    const lineEndX = end.x - this.straightArrowHeadWidth;
+
+    return [
+      `M${end.x} ${centerY}`,
+      `L${lineEndX} ${centerY - arrowHalfHeight}`,
+      `L${lineEndX} ${centerY + arrowHalfHeight}`,
+      `L${end.x} ${centerY}Z`,
+      `M${start.x} ${centerY + lineHalfThickness}`,
+      `L${lineEndX} ${centerY + lineHalfThickness}`,
+      `L${lineEndX} ${centerY - lineHalfThickness}`,
+      `L${start.x} ${centerY - lineHalfThickness}`,
+      `L${start.x} ${centerY + lineHalfThickness}Z`
+    ].join('');
+  }
+
+  protected getBranchArrowTransform(): string | null {
+    const primaryPoints = this.branchLinkPoints.get(this.branchArrowPrimaryId);
+    const secondaryPoints = this.branchLinkPoints.get(this.branchArrowSecondaryId);
+    if (!primaryPoints || !secondaryPoints) {
+      return null;
+    }
+
+    const source = primaryPoints[0];
+    const primaryEnd = primaryPoints[primaryPoints.length - 1];
+    const secondaryEnd = secondaryPoints[secondaryPoints.length - 1];
+    const topTargetY = Math.min(primaryEnd.y, secondaryEnd.y);
+    const bottomTargetY = Math.max(primaryEnd.y, secondaryEnd.y);
+    const height = bottomTargetY - topTargetY;
+    if (height <= 0) {
+      return null;
+    }
+
+    const tipSpan = this.branchArrowBottomTip - this.branchArrowTopTip;
+    const scaleX = 1;
+    const scaleY = this.branchArrowHeight / tipSpan;
+    const translateX = source.x;
+    const midY = (topTargetY + bottomTargetY) / 2;
+    const translateY = midY - this.branchArrowHeight / 2 - this.branchArrowTopTip * scaleY;
+
+    return `translate(${translateX}, ${translateY}) scale(${scaleX}, ${scaleY})`;
+  }
 
   getNodeIcon(node: Node): string {
     const data = node.data as GraphNode | undefined;
@@ -118,8 +204,19 @@ export class GraphVisualizationComponent implements AfterViewInit, OnDestroy {
     return data?.icon || this.graphConfig.getIconPath(kind);
   }
 
+  protected getNodeTransform(node: Node): string {
+    if (node.id === 'endpoint-primary') {
+      return 'translate(168, 0)';
+    }
+    if (node.id === 'endpoint-secondary') {
+      return 'translate(168, -25)';
+    }
+    return '';
+  }
+
   ngAfterViewInit(): void {
     this.updateMetrics();
+    this.setupViewportQuery();
     const container = this.graphContainer?.nativeElement;
     if (!container) {
       return;
@@ -140,6 +237,24 @@ export class GraphVisualizationComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.resizeObserver?.disconnect();
+    if (this.viewportQuery && this.viewportListener) {
+      this.viewportQuery.removeEventListener('change', this.viewportListener);
+    }
+  }
+
+  private setupViewportQuery(): void {
+    if (typeof window === 'undefined') {
+      return;
+    }
+    const query = window.matchMedia('(max-width: 1124px)');
+    const update = (event: MediaQueryList | MediaQueryListEvent) => {
+      this.isCompact.set(event.matches);
+    };
+    update(query);
+    const listener = (event: MediaQueryListEvent) => update(event);
+    query.addEventListener('change', listener);
+    this.viewportQuery = query;
+    this.viewportListener = listener;
   }
 
   protected onCanvasClick(): void {

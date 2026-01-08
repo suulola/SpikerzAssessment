@@ -35,3 +35,12 @@
   --risk-low: #{$green-600};
   --panel-max-height: #{$panel-max-height};
 }
+
+.vp-scroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.vp-scroll::-webkit-scrollbar {
+  display: none;
+}

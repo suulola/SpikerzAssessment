@@ -122,7 +122,7 @@ $shadow-medium: 0px 2.9px 4px 0px rgba(0, 0, 0, 0.05);
 $container-width: 1512px;
 $container-height: 982px;
 
-$sidebar-width-expanded: 218px;
+$sidebar-width-expanded: 250px;
 $sidebar-height: 981px;
 $sidebar-collapser-size: 32px;
 $sidebar-mobile-width: 288px;
@@ -142,7 +142,7 @@ $breakpoint-md: 768px;
 
 $graph-node-container: 81px;
 $graph-node-width: 120px;
-$graph-node-height: 130px;
+$graph-node-height: 115px;
 $graph-node-icon-size: 52.92px;
 $graph-node-icon-x: 33.5px;
 $graph-node-icon-y: 24px;
@@ -150,17 +150,15 @@ $graph-node-badge-size: 25px;
 $graph-node-badge-x: 70.5px;
 $graph-node-badge-y: 19px;
 $graph-node-label-width: 67.5px;
-$graph-node-label-y: 104px;
-$graph-node-tag-y: 122px;
+$graph-node-label-y: 90px;
+$graph-node-tag-y: 103px;
 $graph-scene-width: 649px;
 $graph-panel-graph-min-width: 727px;
 $graph-panel-graph-min-height: 308px;
 $graph-panel-table-width: 367px;
-$graph-panel-table-height: 214px;
 $graph-panel-asset-col-width: 221px;
 $graph-panel-risk-col-width: 146px;
 $graph-panel-risk-width: 340px;
-$graph-panel-risk-height: $graph-panel-table-height;
 $graph-panel-donut-size: 149px;
 $graph-panel-donut-stroke: 13.19px;
 $graph-panel-icon-lg: 45px;
@@ -180,6 +178,9 @@ $popover-viewport-padding: $spacing-4;
 $icon-size-sm: 18px;
 $icon-size-md: 20px;
 $icon-size-graph: 26.25px;
+
+$remediation-icon-circle-size: 52.92px;
+$remediation-icon-size: 21.87px;
 
 
 $z-index-base: 0;
@@ -246,7 +247,7 @@ $graph-node-stroke: $gray-soft-400;
 $graph-node-stroke-width: 0.75px;
 $graph-edge-highlighted-width: 2px;
 $graph-hover-offset: -2px;
-$graph-layout-node-padding: $spacing-5;
+$graph-layout-node-padding: 40px;
 $graph-layout-rank-padding: 40px;
 $graph-layout-margin-x: $spacing-5;
 $graph-layout-margin-y: $spacing-5;

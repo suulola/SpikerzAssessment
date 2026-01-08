@@ -10,13 +10,13 @@
 }
 
 .remediation-card__icon-circle {
-  width: $graph-node-icon-size;
-  height: $graph-node-icon-size;
+  width: $remediation-icon-circle-size;
+  height: $remediation-icon-circle-size;
 }
 
 .remediation-card__icon {
-  width: $icon-size-graph;
-  height: $icon-size-graph;
+  width: $remediation-icon-size;
+  height: $remediation-icon-size;
 }
 
 .remediation-card__icon-text {
@@ -24,8 +24,8 @@
 }
 
 .remediation-card__divider {
-  width: $divider-width;
-  height: $graph-node-icon-size;
+  width: $graph-node-stroke-width;
+  align-self: stretch;
 }
 
 .remediation-card__full {

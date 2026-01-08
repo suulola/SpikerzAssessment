@@ -3,6 +3,7 @@
 :host {
   display: block;
   width: 100%;
+  height: fit-content;
   --graph-min-width: #{$graph-panel-graph-min-width};
   --graph-min-height: #{$graph-panel-graph-min-height};
   --graph-node-width: #{$graph-node-width};
@@ -29,21 +30,24 @@
 }
 
 .graph-container {
-  min-height: var(--graph-min-height);
-  height: auto;
+  height: fit-content;
+  touch-action: pan-x;
 }
 
 .graph-canvas {
   width: 100%;
   min-width: var(--graph-min-width);
-  height: 100%;
+  height: fit-content;
+  touch-action: pan-x;
+  overscroll-behavior-x: contain;
+  overscroll-behavior-y: none;
 }
 
 .graph-canvas ::ng-deep svg {
   width: 100%;
-  height: 100%;
+  height: auto;
   min-width: var(--graph-min-width);
-  min-height: var(--graph-min-height);
+  display: block;
 }
 
 .graph-canvas ::ng-deep .ngx-graph-outer {
@@ -70,14 +74,14 @@
   fill: $gray-soft-400;
 }
 
+.graph-edge__arrow-shape {
+  fill: $gray-soft-400;
+}
+
 .graph-node__hitbox {
   cursor: pointer;
   pointer-events: all;
   outline: none;
-
-  &:hover {
-    fill: rgba($gray-soft-900, 0.05);
-  }
 }
 
 .graph-node__label {

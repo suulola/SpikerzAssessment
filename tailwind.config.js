@@ -3,6 +3,9 @@ module.exports = {
   content: ['./src/**/*.{html,ts}'],
   theme: {
     extend: {
+      screens: {
+        lg: '1125px'
+      },
       colors: {
         green: {
           50: '#E9FAF0',
@@ -72,7 +75,8 @@ module.exports = {
         xl: ['20px', '1.1em']
       },
       letterSpacing: {
-        base: '0.01em'
+        base: '0.01em',
+        caption: '0.03077em'
       },
       spacing: {
         '0.5': '2px',
@@ -83,6 +87,7 @@ module.exports = {
         '2': '8px',
         '2.5': '10px',
         '3': '12px',
+        '3.25': '13px',
         '3.5': '13.5px',
         '3.625': '14px',
         '4': '16px',
@@ -132,9 +137,13 @@ module.exports = {
         '114': '114px',
         '216': '216px',
         '218': '218px',
+        '221': '221px',
+        '146': '146px',
         '385': '385px',
         '391': '391px',
         '460': '460px',
+        '727': '727px',
+        '820': '820px',
         '1192': '1192px'
       },
       gridTemplateColumns: {
@@ -144,6 +153,7 @@ module.exports = {
       height: {
         '18': '18px',
         '20': '20px',
+        '30': '30px',
         '32': '32px',
         '48': '48px',
         '15': '15px',
@@ -151,11 +161,15 @@ module.exports = {
         '36': '36px',
         '39.69': '39.69px',
         '168': '168px',
+        '65': '65px',
         '96': '384px',
         '120': '480px',
+        '350': '350px',
+        '744': '744px',
         '919': '919px'
       },
       lineHeight: {
+        'caption': '1.3846153846153846em',
         'popover': '1.6923076923076923em',
         '104': '1.0384615384615385em',
         '146': '1.4666666666666666em'
@@ -174,6 +188,8 @@ module.exports = {
         '96': '384px'
       },
       minWidth: {
+        '820': '820px',
+        '86': '86px',
         '385': '385px'
       },
       transitionDuration: {

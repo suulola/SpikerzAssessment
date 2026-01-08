@@ -8,7 +8,8 @@ export type SidebarAssetIcon =
   | 'assets/icons/policy.svg'
   | 'assets/icons/report.svg'
   | 'assets/icons/sidebar/settings.svg'
-  | 'assets/icons/sidebar/notifications.svg';
+  | 'assets/icons/sidebar/notifications.svg'
+  | 'assets/icons/sidebar/inventory.svg';
 
 export type SidebarIcon = SidebarAssetIcon | LucideIconData;
 

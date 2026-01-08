@@ -16,8 +16,8 @@ export class RemediationCardComponent {
 
   private readonly iconMapping: Record<'A' | 'B' | 'C', RemediationIconConfig> = {
     A: {
-      label: 'SSH Server',
-      sublabel: 'Bastion'
+      label: 'Server',
+      sublabel: 'Server'
     },
     B: {
       label: 'Firewall',

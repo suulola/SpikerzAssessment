@@ -1,6 +1,6 @@
 @if (isOpen()) {
   <div
-    class="fixed z-9999 -translate-x-1/2 origin-top scale-100 lg:scale-90"
+    class="fixed z-9999 -translate-x-1/2 origin-top scale-100"
     [style.left.px]="popoverPosition()?.x"
     [style.top.px]="popoverPosition()?.y"
     (click)="onPopoverClick($event)"
@@ -8,7 +8,7 @@
     (mouseleave)="onPopoverLeave()"
   >
     @if (selectedNode()?.popoverData?.variant === 'perimeter') {
-      <div class="h-auto min-h-168 w-full max-w-popover-mobile rounded-sm bg-gray-soft-25 shadow-popover-md lg:w-460 lg:max-w-460">
+      <div class="h-auto min-h-168 w-full max-w-popover-mobile rounded-2xl bg-gray-soft-25 shadow-background-xsm lg:w-460 lg:max-w-460">
         <div class="h-full px-7.5 pt-5.25 font-mono text-md leading-popover tracking-base overflow-x-auto">
           <div class="inline-flex items-center gap-2.5 px-2.5 py-0.5 bg-red-50 rounded-pill w-216">
             <span class="font-semibold text-red-700">
@@ -45,9 +45,16 @@
                 alt=""
                 class="h-39.69 w-39.69"
               />
-              <span class="text-md font-semibold leading-104 text-gray-soft-700">
-                {{ selectedNode()?.popoverData?.header?.title }}
-              </span>
+              <div class="flex flex-col gap-1.25">
+                <span class="text-md font-semibold leading-104 text-gray-soft-700">
+                  {{ selectedNode()?.popoverData?.header?.title }}
+                </span>
+                @if (selectedNode()?.popoverData?.header?.subtitle) {
+                  <span class="text-xs font-medium leading-snug text-gray-soft-500">
+                    {{ selectedNode()?.popoverData?.header?.subtitle }}
+                  </span>
+                }
+              </div>
             </div>
 
             @for (row of selectedNode()?.popoverData?.rows; track $index) {
@@ -73,7 +80,7 @@
                           </span>
                         }
                         @default {
-                          <span class="text-base font-semibold leading-146 tracking-base text-gray-soft-700">
+                          <span class="text-base font-bold leading-146 tracking-base text-gray-soft-700">
                             {{ item.value }}
                           </span>
                         }

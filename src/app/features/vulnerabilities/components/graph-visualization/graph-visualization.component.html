@@ -1,17 +1,19 @@
 <div
   #graphContainer
-  class="graph-container flex w-full justify-start overflow-x-auto overflow-y-hidden"
+  class="graph-container flex w-full justify-start overflow-hidden"
   (click)="onCanvasClick()"
 >
   <ngx-graph
-    class="graph-canvas h-full w-full bg-transparent"
+    class="graph-canvas w-full bg-transparent"
     [nodes]="nodes()"
     [links]="links()"
     [layout]="layout"
     [layoutSettings]="layoutSettings()"
     [curve]="curve"
     [view]="view()"
-    [panningEnabled]="false"
+    [panningEnabled]="isCompact()"
+    [panningAxis]="panningAxis"
+    [enableTrackpadSupport]="isCompact()"
     [draggingEnabled]="false"
     [enableZoom]="false"
     [autoZoom]="false"
@@ -19,28 +21,31 @@
     [panOffsetX]="panOffsetX()"
     [panOffsetY]="panOffsetY()"
   >
-    <ng-template #defsTemplate>
-      <svg:marker
-        id="graph-arrow"
-        viewBox="0 0 12 12"
-        refX="12"
-        refY="6"
-        markerWidth="12"
-        markerHeight="12"
-        orient="auto-start-reverse"
-      >
-        <svg:path d="M0 0L12 6L0 12Z" class="graph-edge__arrow" />
-      </svg:marker>
-    </ng-template>
-
     <ng-template #linkTemplate let-link>
-      <svg:g class="graph-edge">
-        <svg:path class="line graph-edge__line" marker-end="url(#graph-arrow)"></svg:path>
+      <svg:g class="graph-edge" [attr.data-cache]="cacheLinkPoints(link)">
+        @if (shouldRenderBranchArrow(link)) {
+          @if (getBranchArrowTransform(); as transform) {
+            <svg:g [attr.transform]="transform">
+              <svg:path
+                class="graph-edge__arrow-shape"
+                d="M208 2.16504L204.25 4.3301L204.25 -2.45087e-05L208 2.16504ZM80.8318 55.5401L-3.57102e-06 55.54L-3.52084e-06 54.79L80.8318 54.7901L80.8318 55.5401ZM204.625 2.54004L144.795 2.54004L144.795 1.79004L204.625 1.79004L204.625 2.54004ZM127.503 10.8626L98.7098 46.9354L98.1236 46.4675L126.917 10.3947L127.503 10.8626ZM144.795 2.54004C138.066 2.54004 131.702 5.60295 127.503 10.8626L126.917 10.3947C131.258 4.95678 137.837 1.79004 144.795 1.79004L144.795 2.54004ZM80.8318 54.7901C87.5615 54.7901 93.9254 51.7271 98.1236 46.4675L98.7098 46.9354C94.3692 52.3733 87.7896 55.5401 80.8318 55.5401L80.8318 54.7901Z"
+              />
+              <svg:path
+                class="graph-edge__arrow-shape"
+                d="M208 106.883L204.25 104.718L204.25 109.048L208 106.883ZM80.9605 54.5078L-3.50411e-06 54.5078L-3.45394e-06 55.2578L80.9605 55.2578L80.9605 54.5078ZM204.625 106.508L144.667 106.508L144.667 107.258L204.625 107.258L204.625 106.508ZM127.504 98.3456L98.7049 62.9467L98.1231 63.42L126.922 98.8189L127.504 98.3456ZM144.667 106.508C138.009 106.508 131.705 103.51 127.504 98.3456L126.922 98.8189C131.266 104.158 137.783 107.258 144.667 107.258L144.667 106.508ZM80.9605 55.2578C87.618 55.2578 93.9216 58.2557 98.1231 63.42L98.7049 62.9467C94.361 57.6073 87.8437 54.5078 80.9605 54.5078L80.9605 55.2578Z"
+              />
+            </svg:g>
+          }
+        } @else if (!isBranchArrow(link)) {
+          @if (getStraightArrowPath(link); as path) {
+            <svg:path class="graph-edge__arrow-shape" [attr.d]="path"></svg:path>
+          }
+        }
       </svg:g>
     </ng-template>
 
     <ng-template #nodeTemplate let-node>
-      <svg:g class="graph-node" [attr.data-type]="node.data?.type">
+      <svg:g class="graph-node" [attr.data-type]="node.data?.type" [attr.transform]="getNodeTransform(node)">
         @if (node.data?.popoverData) {
           <svg:rect
             x="0"
