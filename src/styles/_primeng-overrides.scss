@@ -1,0 +1,16 @@
+@use 'tokens' as *;
+
+.p-toast-message {
+  border: none !important;
+  margin-bottom: 0 !important;
+}
+
+.p-toast-message .p-toast-message-content {
+  padding: $spacing-3-625;
+  padding-inline-end: $spacing-4-5;
+  gap: $spacing-2 !important;
+}
+
+.p-toast-message .p-toast-message-content svg {
+  margin-top: $spacing-1-25;
+}

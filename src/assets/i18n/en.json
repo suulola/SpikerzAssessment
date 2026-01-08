@@ -153,5 +153,9 @@
         "full": "Enable detailed SSH logs, alert on repeated pre-auth crashes, and monitor for abnormal session creation. Forward events to the SIEM and set high-severity alerts for SSH port scanning spikes."
       }
     }
+  },
+  "logout": {
+    "title": "Logout",
+    "body": "Logout not yet implemented."
   }
 }

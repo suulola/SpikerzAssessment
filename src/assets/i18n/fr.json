@@ -153,5 +153,9 @@
         "full": "Activer des journaux SSH détaillés, alerter sur les plantages pré-auth répétés et surveiller les créations de session anormales. Transmettre les événements au SIEM et définir des alertes de haute sévérité pour les pics de scan sur le port SSH."
       }
     }
+  },
+  "logout": {
+    "title": "Déconnexion",
+    "body": "La déconnexion n’est pas encore implémentée."
   }
 }
