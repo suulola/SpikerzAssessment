@@ -8,7 +8,7 @@ import { SkeletonModule } from 'primeng/skeleton';
   imports: [CommonModule, SkeletonModule],
   templateUrl: './placeholder-page.component.html',
   styleUrl: './placeholder-page.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PlaceholderPageComponent {
   readonly stats = [1, 2, 3, 4];

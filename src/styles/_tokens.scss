@@ -1,42 +1,44 @@
+$green-50: #e9faf0;
+$green-600: #08b94e;
+$green-700: #02983e;
+$green-800: #00732e;
 
-
-$green-50: #E9FAF0;
-$green-600: #08B94E;
-$green-700: #02983E;
-$green-800: #00732E;
-
-$gray-soft-25: #FAFAFA;
-$gray-soft-50: #F0F1F3;
-$gray-soft-100: #E0E2E7;
-$gray-soft-400: #858D9D;
+$gray-soft-25: #fafafa;
+$gray-soft-50: #f0f1f3;
+$gray-soft-100: #e0e2e7;
+$gray-soft-400: #858d9d;
 $gray-soft-500: #667085;
-$gray-soft-700: #525D73;
-$gray-soft-900: #404A60;
+$gray-soft-700: #525d73;
+$gray-soft-900: #404a60;
 
 $slate-700: #334155;
 
-$red-50: #FFF1F0;
-$red-100: #FFE2E0;
-$red-700: #E5372B;
-$red-800: #C6190D;
+$red-50: #fff1f0;
+$red-100: #ffe2e0;
+$red-700: #e5372b;
+$red-800: #c6190d;
 
-$blue-100: #D7EAFF;
-$blue-600: #1873DE;
+$blue-100: #d7eaff;
+$blue-600: #1873de;
 
-$purple-50: #F2EDFF;
-$purple-500: #7A44FF;
-$purple-600: #6236CC;
+$purple-50: #f2edff;
+$purple-500: #7a44ff;
+$purple-600: #6236cc;
 
-$orange-600: #FF9500;
-$yellow-600: #EBA622;
+$orange-600: #ff9500;
+$yellow-600: #eba622;
 
-$white: #FFFFFF;
-$gray-2: #F2F3F7;
+$white: #ffffff;
+$gray-2: #f2f3f7;
 $gray-7: #656575;
 $night-blue: #383874;
 
-
-$font-family-primary: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+$font-family-primary:
+  'Public Sans',
+  -apple-system,
+  BlinkMacSystemFont,
+  'Segoe UI',
+  sans-serif;
 $font-family-mono: 'IBM Plex Mono', monospace;
 
 $font-weight-regular: 400;
@@ -69,43 +71,40 @@ $line-height-loose: 1.75em;
 $letter-spacing-base: 0.01em; // 1%
 $letter-spacing-caption: 0.03077em;
 
-
 $spacing-base: 4px;
 
-$spacing-0-5: 2px;  // 2px
+$spacing-0-5: 2px; // 2px
 $spacing-0-75: 3px; // 3px (popover specific)
-$spacing-1: 4px;    // 4px
-$spacing-1-5: 6px;  // 6px
-$spacing-2: 8px;    // 8px
+$spacing-1: 4px; // 4px
+$spacing-1-5: 6px; // 6px
+$spacing-2: 8px; // 8px
 $spacing-2-5: 10px; // 10px
-$spacing-3: 12px;   // 12px
+$spacing-3: 12px; // 12px
 $spacing-3-5: 13.5px; // 13.5px (graph specific)
-$spacing-4: 16px;   // 16px
+$spacing-4: 16px; // 16px
 $spacing-4-5: 18px; // 18px (popover specific)
-$spacing-5: 20px;   // 20px
-$spacing-6: 24px;   // 24px
-$spacing-7: 28px;   // 28px (sidebar specific)
+$spacing-5: 20px; // 20px
+$spacing-6: 24px; // 24px
+$spacing-7: 28px; // 28px (sidebar specific)
 $spacing-7-5: 30px; // 30px
-$spacing-8: 32px;   // 32px
+$spacing-8: 32px; // 32px
 $spacing-8-75: 35px; // 35px (layout gap)
-$spacing-9: 36px;   // 36px
-$spacing-12: 48px;  // 48px
+$spacing-9: 36px; // 36px
+$spacing-12: 48px; // 48px
 $spacing-12-5: 50px; // 50px (graph nodes)
 
-
-$radius-xs: 3px;     // Scrollbars, small elements
-$radius-pill: 6px;   // Popover pills, small rounded elements
-$radius-sm: 8px;     // Menu items, interactive elements
+$radius-xs: 3px; // Scrollbars, small elements
+$radius-pill: 6px; // Popover pills, small rounded elements
+$radius-sm: 8px; // Menu items, interactive elements
 $radius-circle: 10px; // Badge circles (20px diameter)
-$radius-md: 12px;    // Sidebar, medium containers
-$radius-lg: 15px;    // Cards, panels, main content
-$radius-xl: 16px;    // Collapser button
-$radius-2xl: 20px;   // Large containers, popovers
+$radius-md: 12px; // Sidebar, medium containers
+$radius-lg: 15px; // Cards, panels, main content
+$radius-xl: 16px; // Collapser button
+$radius-2xl: 20px; // Large containers, popovers
 $radius-node: 22.5px; // Graph nodes
-$radius-full: 50%;   // Perfect circles
+$radius-full: 50%; // Perfect circles
 
 $radius-inner-frame: 2.7px; // Graph node inner frames
-
 
 $shadow-background-md: 0px 16px 18px 0px rgba(0, 0, 0, 0.06);
 
@@ -113,11 +112,14 @@ $shadow-background-xsm: 0px 2px 2px 2px rgba(0, 0, 0, 0.16);
 
 $shadow-drop-100: 0px 1px 4px 0px rgba(12, 12, 13, 0.05);
 
-$shadow-xs: 0px 1px 3px 0px rgba(0, 0, 0, 0.05), 0px 1px 2px 0px rgba(0, 0, 0, 0.1);
-$shadow-remediation: 0px 1px 2px 0px rgba(0, 0, 0, 0.1), inset 0px 1px 3px 0px rgba(0, 0, 0, 0.05);
+$shadow-xs:
+  0px 1px 3px 0px rgba(0, 0, 0, 0.05),
+  0px 1px 2px 0px rgba(0, 0, 0, 0.1);
+$shadow-remediation:
+  0px 1px 2px 0px rgba(0, 0, 0, 0.1),
+  inset 0px 1px 3px 0px rgba(0, 0, 0, 0.05);
 
 $shadow-medium: 0px 2.9px 4px 0px rgba(0, 0, 0, 0.05);
-
 
 $container-width: 1512px;
 $container-height: 982px;
@@ -138,7 +140,6 @@ $layout-gap-main: 35px;
 $layout-gap-panels: 20px;
 
 $breakpoint-md: 768px;
-
 
 $graph-node-container: 81px;
 $graph-node-width: 120px;
@@ -182,7 +183,6 @@ $icon-size-graph: 26.25px;
 $remediation-icon-circle-size: 52.92px;
 $remediation-icon-size: 21.87px;
 
-
 $z-index-base: 0;
 $z-index-card: 1;
 $z-index-sidebar: 10;
@@ -191,14 +191,12 @@ $z-index-overlay: 100;
 $z-index-tooltip: 200;
 $z-index-popover: 9999;
 
-
 $transition-fast: 150ms ease-in-out;
 $transition-base: 250ms ease-in-out;
 $transition-slow: 350ms ease-in-out;
 
 $animation-delay-step: 50ms;
 $animation-pulse-duration: 2s;
-
 
 $sidebar-bg: $white;
 $sidebar-shadow: $shadow-background-md;
@@ -257,7 +255,6 @@ $graph-pan-offset-y: 86px;
 $divider-stroke: $gray-soft-100;
 $divider-width: 1px;
 $border-width-risk: 1.1px;
-
 
 @mixin text-heading-section {
   font-family: $font-family-primary;

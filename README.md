@@ -34,7 +34,6 @@ This project enforces tokenized values for spacing, colors, radii, and sizes.
 - Tailwind tokens are extended in `tailwind.config.js`.
 - Avoid hardcoded px in CSS/SCSS. Use tokens or Tailwind utilities instead.
 
-
 ## Setup
 
 Install dependencies:
@@ -52,6 +51,14 @@ ng serve
 ```
 
 Then open `http://localhost:4200`.
+
+## Formatting & Hooks
+
+This project enforces consistent formatting with Prettier and a Husky pre-commit hook.
+
+- Format code: `npm run format`
+- Check formatting: `npm run format:check`
+- Pre-commit: `lint-staged` runs Prettier on staged files.
 
 ## Build
 
@@ -75,5 +82,3 @@ ng test
 ## PrimeNG Chart (Contextual Risk)
 
 The Contextual Risk card uses PrimeNG Chart (Chart.js) with a doughnut chart and a center value overlay. Chart styling is controlled via chart options and design tokens.
-
-

@@ -1,5 +1,7 @@
 <div class="relative group/sidebar-shell h-full">
-  <aside class="flex flex-col bg-white rounded-md shadow-background-md transition-all duration-250 w-fit h-full">
+  <aside
+    class="flex flex-col bg-white rounded-md shadow-background-md transition-all duration-250 w-fit h-full"
+  >
     <div
       class="flex flex-col justify-between h-full py-7 px-4 overflow-y-hidden"
       [class.overflow-y-auto]="!collapsed()"
@@ -10,47 +12,46 @@
       <div class="flex flex-col gap-6">
         @if (collapsed()) {
           <div class="flex items-center justify-center">
-            <img
-              src="assets/icons/sidebar/app-logo.svg"
-              alt="App logo"
-              class="h-30.35 w-30.35"
-            />
+            <img src="assets/icons/sidebar/app-logo.svg" alt="App logo" class="h-30.35 w-30.35" />
           </div>
         }
         <nav class="flex flex-col gap-1.5">
           @for (item of menuItems(); track item.id) {
-          <button
-            class="group/sidebar-item relative flex items-center gap-2 flex-1 py-2.5 px-3 rounded-sm border-none cursor-pointer transition-all duration-150 w-full text-left text-gray-soft-700"
-            [class.bg-green-50]="isMenuItemSelected(item.id)"
-            [class.text-green-900]="isMenuItemSelected(item.id)"
-            [class.bg-transparent]="!isMenuItemSelected(item.id)"
-            [class.hover:bg-gray-soft-50]="!isMenuItemSelected(item.id)"
-            [class.hover:text-green-900]="!isMenuItemSelected(item.id)"
-            [class.justify-center]="collapsed()"
-            [class.md:w-218]="!collapsed()"
-            (click)="onMenuItemClick(item)"
-          >
-            @if (isLucideIcon(item.icon)) {
-              <lucide-icon
-                [img]="item.icon"
-                [size]="20"
-                class="shrink-0 transition-colors duration-150"
-                [class.text-green-900]="isMenuItemSelected(item.id)"
-                [class.text-gray-soft-300]="!isMenuItemSelected(item.id)"
-                [class.group-hover/sidebar-item:text-green-900]="!isMenuItemSelected(item.id)"
-              ></lucide-icon>
-            } @else {
-              <span
-                class="sidebar-icon w-5 h-5 shrink-0"
-                [class.text-green-900]="isMenuItemSelected(item.id)"
-                [class.text-gray-soft-300]="!isMenuItemSelected(item.id)"
-                [class.group-hover/sidebar-item:text-green-900]="!isMenuItemSelected(item.id)"
-                [style.--sidebar-icon]="'url(' + item.icon + ')'"
-                aria-hidden="true"
-              ></span>
-            }
+            <button
+              class="group/sidebar-item relative flex items-center gap-2 flex-1 py-2.5 px-3 rounded-sm border-none cursor-pointer transition-all duration-150 w-full text-left text-gray-soft-700"
+              [class.bg-green-50]="isMenuItemSelected(item.id)"
+              [class.text-green-900]="isMenuItemSelected(item.id)"
+              [class.bg-transparent]="!isMenuItemSelected(item.id)"
+              [class.hover:bg-gray-soft-50]="!isMenuItemSelected(item.id)"
+              [class.hover:text-green-900]="!isMenuItemSelected(item.id)"
+              [class.justify-center]="collapsed()"
+              [class.md:w-218]="!collapsed()"
+              (click)="onMenuItemClick(item)"
+            >
+              @if (isLucideIcon(item.icon)) {
+                <lucide-icon
+                  [img]="item.icon"
+                  [size]="20"
+                  class="shrink-0 transition-colors duration-150"
+                  [class.text-green-900]="isMenuItemSelected(item.id)"
+                  [class.text-gray-soft-300]="!isMenuItemSelected(item.id)"
+                  [class.group-hover/sidebar-item:text-green-900]="!isMenuItemSelected(item.id)"
+                ></lucide-icon>
+              } @else {
+                <span
+                  class="sidebar-icon w-5 h-5 shrink-0"
+                  [class.text-green-900]="isMenuItemSelected(item.id)"
+                  [class.text-gray-soft-300]="!isMenuItemSelected(item.id)"
+                  [class.group-hover/sidebar-item:text-green-900]="!isMenuItemSelected(item.id)"
+                  [style.--sidebar-icon]="'url(' + item.icon + ')'"
+                  aria-hidden="true"
+                ></span>
+              }
               @if (!collapsed()) {
-                <span class="text-base font-normal tracking-base whitespace-nowrap transition-opacity duration-150">{{ item.label }}</span>
+                <span
+                  class="text-base font-normal tracking-base whitespace-nowrap transition-opacity duration-150"
+                  >{{ item.label }}</span
+                >
               }
               @if (collapsed()) {
                 <span
@@ -67,38 +68,41 @@
       <div class="flex flex-col gap-5">
         <nav class="flex flex-col gap-2">
           @for (item of secondaryMenuItems(); track item.id) {
-          <button
-            class="group/sidebar-item relative flex items-center gap-2 flex-1 py-2.5 px-3 rounded-sm border-none cursor-pointer transition-all duration-150 w-full text-left text-gray-soft-700"
-            [class.bg-green-50]="isMenuItemSelected(item.id)"
-            [class.text-green-900]="isMenuItemSelected(item.id)"
-            [class.bg-transparent]="!isMenuItemSelected(item.id)"
-            [class.hover:bg-gray-soft-50]="!isMenuItemSelected(item.id)"
-            [class.hover:text-green-900]="!isMenuItemSelected(item.id)"
-            [class.justify-center]="collapsed()"
-            [class.md:w-218]="!collapsed()"
-            (click)="onMenuItemClick(item)"
-          >
-            @if (isLucideIcon(item.icon)) {
-              <lucide-icon
-                [img]="item.icon"
-                [size]="20"
-                class="shrink-0 transition-colors duration-150"
-                [class.text-green-900]="isMenuItemSelected(item.id)"
-                [class.text-gray-soft-300]="!isMenuItemSelected(item.id)"
-                [class.group-hover/sidebar-item:text-green-900]="!isMenuItemSelected(item.id)"
-              ></lucide-icon>
-            } @else {
-              <span
-                class="sidebar-icon w-5 h-5 shrink-0"
-                [class.text-green-900]="isMenuItemSelected(item.id)"
-                [class.text-gray-soft-300]="!isMenuItemSelected(item.id)"
-                [class.group-hover/sidebar-item:text-green-900]="!isMenuItemSelected(item.id)"
-                [style.--sidebar-icon]="'url(' + item.icon + ')'"
-                aria-hidden="true"
-              ></span>
-            }
+            <button
+              class="group/sidebar-item relative flex items-center gap-2 flex-1 py-2.5 px-3 rounded-sm border-none cursor-pointer transition-all duration-150 w-full text-left text-gray-soft-700"
+              [class.bg-green-50]="isMenuItemSelected(item.id)"
+              [class.text-green-900]="isMenuItemSelected(item.id)"
+              [class.bg-transparent]="!isMenuItemSelected(item.id)"
+              [class.hover:bg-gray-soft-50]="!isMenuItemSelected(item.id)"
+              [class.hover:text-green-900]="!isMenuItemSelected(item.id)"
+              [class.justify-center]="collapsed()"
+              [class.md:w-218]="!collapsed()"
+              (click)="onMenuItemClick(item)"
+            >
+              @if (isLucideIcon(item.icon)) {
+                <lucide-icon
+                  [img]="item.icon"
+                  [size]="20"
+                  class="shrink-0 transition-colors duration-150"
+                  [class.text-green-900]="isMenuItemSelected(item.id)"
+                  [class.text-gray-soft-300]="!isMenuItemSelected(item.id)"
+                  [class.group-hover/sidebar-item:text-green-900]="!isMenuItemSelected(item.id)"
+                ></lucide-icon>
+              } @else {
+                <span
+                  class="sidebar-icon w-5 h-5 shrink-0"
+                  [class.text-green-900]="isMenuItemSelected(item.id)"
+                  [class.text-gray-soft-300]="!isMenuItemSelected(item.id)"
+                  [class.group-hover/sidebar-item:text-green-900]="!isMenuItemSelected(item.id)"
+                  [style.--sidebar-icon]="'url(' + item.icon + ')'"
+                  aria-hidden="true"
+                ></span>
+              }
               @if (!collapsed()) {
-                <span class="text-base font-normal tracking-base whitespace-nowrap transition-opacity duration-150">{{ item.label }}</span>
+                <span
+                  class="text-base font-normal tracking-base whitespace-nowrap transition-opacity duration-150"
+                  >{{ item.label }}</span
+                >
               }
               @if (collapsed()) {
                 <span
@@ -125,13 +129,23 @@
                   class="w-12 h-12 rounded-full object-cover shrink-0"
                 />
               } @else {
-                <div class="w-12 h-12 rounded-full bg-green-700 text-white flex items-center justify-center font-bold text-base shrink-0">
+                <div
+                  class="w-12 h-12 rounded-full bg-green-700 text-white flex items-center justify-center font-bold text-base shrink-0"
+                >
                   {{ getUserInitials() }}
                 </div>
               }
               <div class="flex flex-col justify-center min-w-0 flex-1">
-                <div class="text-base font-normal tracking-base whitespace-nowrap overflow-hidden text-ellipsis text-gray-soft-700">{{ profile().name }}</div>
-                <div class="text-base font-normal tracking-base whitespace-nowrap overflow-hidden text-ellipsis text-gray-soft-700">{{ profile().role }}</div>
+                <div
+                  class="text-base font-normal tracking-base whitespace-nowrap overflow-hidden text-ellipsis text-gray-soft-700"
+                >
+                  {{ profile().name }}
+                </div>
+                <div
+                  class="text-base font-normal tracking-base whitespace-nowrap overflow-hidden text-ellipsis text-gray-soft-700"
+                >
+                  {{ profile().role }}
+                </div>
               </div>
             </div>
             <button
@@ -140,20 +154,22 @@
             >
               <img src="assets/icons/sidebar/logout.svg" alt="Logout" class="w-3.25 h-3.25" />
             </button>
-        } @else {
-          @if (profile().avatar) {
-            <img
-              [src]="profile().avatar"
-              [alt]="profile().name"
-              class="w-36 h-36 rounded-full object-cover mx-auto"
-            />
           } @else {
-            <div class="w-12 h-12 rounded-full bg-green-700 text-white flex items-center justify-center font-bold text-base mx-auto">
-              {{ getUserInitials() }}
-            </div>
+            @if (profile().avatar) {
+              <img
+                [src]="profile().avatar"
+                [alt]="profile().name"
+                class="w-36 h-36 rounded-full object-cover mx-auto"
+              />
+            } @else {
+              <div
+                class="w-12 h-12 rounded-full bg-green-700 text-white flex items-center justify-center font-bold text-base mx-auto"
+              >
+                {{ getUserInitials() }}
+              </div>
+            }
           }
-        }
-      </div>
+        </div>
       </div>
     </div>
   </aside>
@@ -167,6 +183,10 @@
     [class.active:scale-95]="collapsed()"
     (click)="onToggle()"
   >
-    <i class="pi text-white text-sm" [class.pi-chevron-left]="!collapsed()" [class.pi-chevron-right]="collapsed()"></i>
+    <i
+      class="pi text-white text-sm"
+      [class.pi-chevron-left]="!collapsed()"
+      [class.pi-chevron-right]="collapsed()"
+    ></i>
   </button>
 </div>

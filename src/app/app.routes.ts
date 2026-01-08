@@ -11,12 +11,14 @@ export const routes: Routes = [
       { path: '', redirectTo: 'vulnerabilities', pathMatch: 'full' },
       {
         path: 'dashboard',
-        component: PlaceholderPageComponent
+        component: PlaceholderPageComponent,
       },
       {
         path: 'vulnerabilities',
-        loadChildren: () => import('./features/vulnerabilities/vulnerabilities.routes')
-          .then(m => m.VULNERABILITIES_ROUTES)
+        loadChildren: () =>
+          import('./features/vulnerabilities/vulnerabilities.routes').then(
+            (m) => m.VULNERABILITIES_ROUTES
+          ),
       },
       { path: 'threat-scenarios', component: PlaceholderPageComponent },
       { path: 'inventory', component: PlaceholderPageComponent },
@@ -25,7 +27,7 @@ export const routes: Routes = [
       { path: 'report', component: PlaceholderPageComponent },
       { path: 'settings', component: PlaceholderPageComponent },
       { path: 'notifications', component: PlaceholderPageComponent },
-      { path: '**', component: NotFoundComponent }
-    ]
-  }
+      { path: '**', component: NotFoundComponent },
+    ],
+  },
 ];

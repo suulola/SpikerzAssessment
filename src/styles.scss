@@ -1,4 +1,4 @@
-@use './styles/tokens' as *;
+@use 'tokens' as *;
 @use 'primeicons/primeicons.css';
 
 @import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap');
@@ -12,7 +12,13 @@
   }
 
   body {
-    font-family: 'Public Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family:
+      'Public Sans',
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      sans-serif;
     background: $gray-soft-25;
     color: $gray-soft-700;
     -webkit-font-smoothing: antialiased;

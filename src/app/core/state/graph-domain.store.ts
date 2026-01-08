@@ -4,21 +4,21 @@ import { GraphDomainService } from '@core/services/graph-domain.service';
 import { type GraphData, type AssetRiskRow, type RiskSummaryItem } from '@core/models';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GraphDomainStore {
   private readonly graphDomainService = inject(GraphDomainService);
 
   private readonly graphDataSignal = toSignal(this.graphDomainService.getGraphData(), {
-    initialValue: { nodes: [], edges: [] } as GraphData
+    initialValue: { nodes: [], edges: [] } as GraphData,
   });
 
   private readonly assetRiskRowsSignal = toSignal(this.graphDomainService.getAssetRiskRows(), {
-    initialValue: [] as AssetRiskRow[]
+    initialValue: [] as AssetRiskRow[],
   });
 
   private readonly riskSummarySignal = toSignal(this.graphDomainService.getRiskSummary(), {
-    initialValue: [] as RiskSummaryItem[]
+    initialValue: [] as RiskSummaryItem[],
   });
 
   readonly graphData = computed(() => this.graphDataSignal());

@@ -7,7 +7,7 @@ import {
   ViewChild,
   computed,
   inject,
-  signal
+  signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgxGraphModule, PanningAxis, type Node, type Edge } from '@swimlane/ngx-graph';
@@ -24,7 +24,7 @@ import { type GraphNode, type GraphNodeKind, type GraphMetrics } from '@core/mod
   imports: [CommonModule, NgxGraphModule],
   templateUrl: './graph-visualization.component.html',
   styleUrl: './graph-visualization.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GraphVisualizationComponent implements AfterViewInit, OnDestroy {
   private readonly graphStore = inject(GraphStore);
@@ -75,7 +75,7 @@ export class GraphVisualizationComponent implements AfterViewInit, OnDestroy {
     popoverDetailsWidth: 0,
     popoverMinHeight: 0,
     popoverOffsetY: 0,
-    popoverViewportPadding: 0
+    popoverViewportPadding: 0,
   });
 
   readonly metrics = this.graphMetrics;
@@ -85,22 +85,22 @@ export class GraphVisualizationComponent implements AfterViewInit, OnDestroy {
 
   readonly nodes = computed<Node[]>(() => {
     const metrics = this.graphMetrics();
-    return this.graphData().nodes.map(node => ({
+    return this.graphData().nodes.map((node) => ({
       id: node.id,
       label: node.label,
       data: node,
       dimension: {
         width: metrics.nodeWidth,
-        height: metrics.nodeHeight
-      }
+        height: metrics.nodeHeight,
+      },
     }));
   });
 
   readonly links = computed<Edge[]>(() => {
-    return this.graphData().edges.map(edge => ({
+    return this.graphData().edges.map((edge) => ({
       id: edge.id,
       source: edge.source,
-      target: edge.target
+      target: edge.target,
     }));
   });
 
@@ -113,7 +113,7 @@ export class GraphVisualizationComponent implements AfterViewInit, OnDestroy {
       nodePadding: metrics.layoutNodePadding,
       rankPadding: metrics.layoutRankPadding,
       marginX: metrics.layoutMarginX,
-      marginY: metrics.layoutMarginY
+      marginY: metrics.layoutMarginY,
     };
   });
 
@@ -167,7 +167,7 @@ export class GraphVisualizationComponent implements AfterViewInit, OnDestroy {
       `L${lineEndX} ${centerY + lineHalfThickness}`,
       `L${lineEndX} ${centerY - lineHalfThickness}`,
       `L${start.x} ${centerY - lineHalfThickness}`,
-      `L${start.x} ${centerY + lineHalfThickness}Z`
+      `L${start.x} ${centerY + lineHalfThickness}Z`,
     ].join('');
   }
 
@@ -225,7 +225,7 @@ export class GraphVisualizationComponent implements AfterViewInit, OnDestroy {
     const updateSize = () => {
       this.graphSize.set({
         width: container.clientWidth,
-        height: container.clientHeight
+        height: container.clientHeight,
       });
     };
 
@@ -284,7 +284,7 @@ export class GraphVisualizationComponent implements AfterViewInit, OnDestroy {
       popoverDetailsWidth: metrics.popoverDetailsWidth,
       popoverMinHeight: metrics.popoverMinHeight,
       popoverOffsetY: metrics.popoverOffsetY,
-      popoverViewportPadding: metrics.popoverViewportPadding
+      popoverViewportPadding: metrics.popoverViewportPadding,
     });
 
     this.graphStore.selectNode(
@@ -300,8 +300,8 @@ export class GraphVisualizationComponent implements AfterViewInit, OnDestroy {
           variant,
           header: popoverData.header
             ? { ...popoverData.header, icon: popoverData.header.icon || popoverIcon }
-            : popoverData.header
-        }
+            : popoverData.header,
+        },
       },
       position
     );
@@ -341,7 +341,7 @@ export class GraphVisualizationComponent implements AfterViewInit, OnDestroy {
         popoverDetailsWidth: metrics.popoverDetailsWidth,
         popoverMinHeight: metrics.popoverMinHeight,
         popoverOffsetY: metrics.popoverOffsetY,
-        popoverViewportPadding: metrics.popoverViewportPadding
+        popoverViewportPadding: metrics.popoverViewportPadding,
       });
 
       this.graphStore.selectNode(
@@ -357,8 +357,8 @@ export class GraphVisualizationComponent implements AfterViewInit, OnDestroy {
             variant,
             header: popoverData.header
               ? { ...popoverData.header, icon: popoverData.header.icon || popoverIcon }
-              : popoverData.header
-          }
+              : popoverData.header,
+          },
         },
         position
       );
@@ -403,7 +403,7 @@ export class GraphVisualizationComponent implements AfterViewInit, OnDestroy {
       popoverDetailsWidth: readVar('--popover-details-width'),
       popoverMinHeight: readVar('--popover-min-height'),
       popoverOffsetY: readVar('--popover-offset-y'),
-      popoverViewportPadding: readVar('--popover-viewport-padding')
+      popoverViewportPadding: readVar('--popover-viewport-padding'),
     });
   }
 }

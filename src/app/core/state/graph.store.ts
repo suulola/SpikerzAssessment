@@ -2,7 +2,7 @@ import { Injectable, computed, signal } from '@angular/core';
 import { GraphNode, GraphEdge, NodePosition } from '../models';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GraphStore {
   private readonly _nodes = signal<GraphNode[]>([]);
@@ -30,7 +30,7 @@ export class GraphStore {
   readonly connectedNodes = computed(() => {
     const connections = this.selectedNodeConnections();
     const allNodes = this._nodes();
-    return allNodes.filter(node => connections.includes(node.id));
+    return allNodes.filter((node) => connections.includes(node.id));
   });
 
   readonly isPopoverOpen = computed(() => {
@@ -69,23 +69,21 @@ export class GraphStore {
   }
 
   getNodeById(id: string): GraphNode | undefined {
-    return this._nodes().find(node => node.id === id);
+    return this._nodes().find((node) => node.id === id);
   }
 
   updateNode(id: string, updates: Partial<GraphNode>): void {
-    this._nodes.update(nodes =>
-      nodes.map(node =>
-        node.id === id ? { ...node, ...updates } : node
-      )
+    this._nodes.update((nodes) =>
+      nodes.map((node) => (node.id === id ? { ...node, ...updates } : node))
     );
   }
 
   addNode(node: GraphNode): void {
-    this._nodes.update(nodes => [...nodes, node]);
+    this._nodes.update((nodes) => [...nodes, node]);
   }
 
   removeNode(id: string): void {
-    this._nodes.update(nodes => nodes.filter(node => node.id !== id));
+    this._nodes.update((nodes) => nodes.filter((node) => node.id !== id));
 
     if (this._selectedNode()?.id === id) {
       this.clearSelection();
@@ -93,11 +91,11 @@ export class GraphStore {
   }
 
   addEdge(edge: GraphEdge): void {
-    this._edges.update(edges => [...edges, edge]);
+    this._edges.update((edges) => [...edges, edge]);
   }
 
   removeEdge(id: string): void {
-    this._edges.update(edges => edges.filter(edge => edge.id !== id));
+    this._edges.update((edges) => edges.filter((edge) => edge.id !== id));
   }
 
   reset(): void {

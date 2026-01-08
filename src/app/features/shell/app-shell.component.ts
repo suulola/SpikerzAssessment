@@ -10,7 +10,7 @@ import { SidebarMenuItem } from '@core/models';
   imports: [CommonModule, RouterOutlet, SidebarComponent],
   templateUrl: './app-shell.component.html',
   styleUrl: './app-shell.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppShellComponent {
   isSidebarCollapsed = signal(false);
@@ -19,7 +19,7 @@ export class AppShellComponent {
   constructor(private readonly router: Router) {}
 
   toggleSidebar(): void {
-    this.isSidebarCollapsed.update(collapsed => !collapsed);
+    this.isSidebarCollapsed.update((collapsed) => !collapsed);
   }
 
   openMobileSidebar(): void {

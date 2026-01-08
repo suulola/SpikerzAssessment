@@ -8,7 +8,7 @@ import { type RemediationIconConfig, type RemediationTechniqueData } from '@core
   imports: [CommonModule],
   templateUrl: './remediation-card.component.html',
   styleUrl: './remediation-card.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RemediationCardComponent {
   technique = input.required<RemediationTechniqueData>();
@@ -17,16 +17,16 @@ export class RemediationCardComponent {
   private readonly iconMapping: Record<'A' | 'B' | 'C', RemediationIconConfig> = {
     A: {
       label: 'Server',
-      sublabel: 'Server'
+      sublabel: 'Server',
     },
     B: {
       label: 'Firewall',
-      sublabel: 'Edge'
+      sublabel: 'Edge',
     },
     C: {
       label: 'Sensor',
-      sublabel: 'SIEM'
-    }
+      sublabel: 'SIEM',
+    },
   };
 
   protected readonly iconConfig = computed<RemediationIconConfig>(() => {
@@ -34,6 +34,6 @@ export class RemediationCardComponent {
   });
 
   protected toggleExpanded(): void {
-    this.isExpanded.update(value => !value);
+    this.isExpanded.update((value) => !value);
   }
 }

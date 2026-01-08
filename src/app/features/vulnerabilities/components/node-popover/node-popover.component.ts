@@ -10,7 +10,7 @@ import { GraphDomainService } from '@core/services/graph-domain.service';
   imports: [CommonModule],
   templateUrl: './node-popover.component.html',
   styleUrl: './node-popover.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NodePopoverComponent {
   private closeTimeout: ReturnType<typeof setTimeout> | null = null;

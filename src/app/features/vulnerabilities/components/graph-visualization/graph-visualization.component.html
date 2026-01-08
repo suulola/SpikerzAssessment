@@ -45,7 +45,11 @@
     </ng-template>
 
     <ng-template #nodeTemplate let-node>
-      <svg:g class="graph-node" [attr.data-type]="node.data?.type" [attr.transform]="getNodeTransform(node)">
+      <svg:g
+        class="graph-node"
+        [attr.data-type]="node.data?.type"
+        [attr.transform]="getNodeTransform(node)"
+      >
         @if (node.data?.popoverData) {
           <svg:rect
             x="0"

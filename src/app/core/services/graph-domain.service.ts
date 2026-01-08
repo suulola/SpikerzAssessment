@@ -8,12 +8,12 @@ import {
   type GraphNodeKind,
   type RemediationTechnique,
   type AssetRiskRow,
-  type RiskSummaryItem
+  type RiskSummaryItem,
 } from '../models';
 import { GraphConfigurationService } from './graph-configuration.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GraphDomainService {
   private readonly graphConfig = inject(GraphConfigurationService);
@@ -28,19 +28,12 @@ export class GraphDomainService {
         popoverData: {
           variant: this.graphConfig.getPopoverVariant('perimeter'),
           title: 'Lorem Ipsum Dolor Sit',
-          vulnerabilities: [
-            '1.2.3.4',
-            '1.2.3.4',
-            '1.2.3.4',
-            '1.2.3.4',
-            '1.2.3.4',
-            '1.2.3.4'
-          ],
+          vulnerabilities: ['1.2.3.4', '1.2.3.4', '1.2.3.4', '1.2.3.4', '1.2.3.4', '1.2.3.4'],
           metadata: {
             label: 'Lorem',
-            value: '1.2.3.4'
-          }
-        } as NodePopoverData
+            value: '1.2.3.4',
+          },
+        } as NodePopoverData,
       },
       {
         id: 'server-a',
@@ -51,7 +44,7 @@ export class GraphDomainService {
           variant: this.graphConfig.getPopoverVariant('server'),
           header: {
             icon: 'assets/icons/graph/node-server.svg',
-            title: 'Loremipsu'
+            title: 'Loremipsu',
           },
           rows: [
             {
@@ -60,8 +53,8 @@ export class GraphDomainService {
                 { type: 'icon', icon: 'assets/icons/popover/receipt-text.svg' },
                 { type: 'text', value: 'Lorem:', textStyle: 'title' },
                 { type: 'text', value: 'Loremipsum Loremipsum', textStyle: 'title' },
-                { type: 'chip', value: '1.2.3.4', tone: 'purple' }
-              ]
+                { type: 'chip', value: '1.2.3.4', tone: 'purple' },
+              ],
             },
             {
               gap: 'tight',
@@ -69,11 +62,11 @@ export class GraphDomainService {
                 { type: 'chip', value: '1.2.3.4', tone: 'purple' },
                 { type: 'text', value: 'Loremipsum', textStyle: 'title' },
                 { type: 'chip', value: '1.2.3.4', tone: 'purple' },
-                { type: 'chip', value: '1.2.3.4', tone: 'purple' }
-              ]
-            }
-          ]
-        } as NodePopoverData
+                { type: 'chip', value: '1.2.3.4', tone: 'purple' },
+              ],
+            },
+          ],
+        } as NodePopoverData,
       },
       {
         id: 'server-b',
@@ -84,7 +77,7 @@ export class GraphDomainService {
           variant: this.graphConfig.getPopoverVariant('server'),
           header: {
             icon: 'assets/icons/graph/node-server.svg',
-            title: 'Loremipsu'
+            title: 'Loremipsu',
           },
           rows: [
             {
@@ -93,8 +86,8 @@ export class GraphDomainService {
                 { type: 'icon', icon: 'assets/icons/popover/receipt-text.svg' },
                 { type: 'text', value: 'Lorem:', textStyle: 'title' },
                 { type: 'text', value: 'Loremipsum Loremipsum', textStyle: 'title' },
-                { type: 'chip', value: '1.2.3.4', tone: 'purple' }
-              ]
+                { type: 'chip', value: '1.2.3.4', tone: 'purple' },
+              ],
             },
             {
               gap: 'tight',
@@ -102,11 +95,11 @@ export class GraphDomainService {
                 { type: 'chip', value: '1.2.3.4', tone: 'purple' },
                 { type: 'text', value: 'Loremipsum', textStyle: 'title' },
                 { type: 'chip', value: '1.2.3.4', tone: 'purple' },
-                { type: 'chip', value: '1.2.3.4', tone: 'purple' }
-              ]
-            }
-          ]
-        } as NodePopoverData
+                { type: 'chip', value: '1.2.3.4', tone: 'purple' },
+              ],
+            },
+          ],
+        } as NodePopoverData,
       },
       {
         id: 'endpoint-primary',
@@ -120,7 +113,7 @@ export class GraphDomainService {
           header: {
             icon: 'assets/icons/graph/popover-endpoint.svg',
             title: 'Loremipsumdolorsit',
-            subtitle: '192.168.1.1'
+            subtitle: '192.168.1.1',
           },
           rows: [
             {
@@ -128,18 +121,18 @@ export class GraphDomainService {
               items: [
                 { type: 'icon', icon: 'assets/icons/popover/receipt-text.svg' },
                 { type: 'text', value: 'Lorem:', textStyle: 'title' },
-                { type: 'chip', value: 'Lorem "ipsum"', tone: 'yellow' }
-              ]
+                { type: 'chip', value: 'Lorem "ipsum"', tone: 'yellow' },
+              ],
             },
             {
               gap: 'tight',
               items: [
                 { type: 'text', value: 'Loremipsum', textStyle: 'title' },
-                { type: 'chip', value: 'lorem 1234,5678', tone: 'blue' }
-              ]
-            }
-          ]
-        } as NodePopoverData
+                { type: 'chip', value: 'lorem 1234,5678', tone: 'blue' },
+              ],
+            },
+          ],
+        } as NodePopoverData,
       },
       {
         id: 'endpoint-secondary',
@@ -153,7 +146,7 @@ export class GraphDomainService {
           header: {
             icon: 'assets/icons/graph/popover-endpoint.svg',
             title: 'Loremipsumdolorsit002',
-            subtitle: '192.168.1.2'
+            subtitle: '192.168.1.2',
           },
           rows: [
             {
@@ -161,26 +154,26 @@ export class GraphDomainService {
               items: [
                 { type: 'icon', icon: 'assets/icons/popover/receipt-text.svg' },
                 { type: 'text', value: 'Lorem:', textStyle: 'title' },
-                { type: 'chip', value: 'Lorem "ipsum"', tone: 'yellow' }
-              ]
+                { type: 'chip', value: 'Lorem "ipsum"', tone: 'yellow' },
+              ],
             },
             {
               gap: 'tight',
               items: [
                 { type: 'text', value: 'Loremipsum', textStyle: 'title' },
-                { type: 'chip', value: 'lorem 1234,5678', tone: 'blue' }
-              ]
-            }
-          ]
-        } as NodePopoverData
-      }
+                { type: 'chip', value: 'lorem 1234,5678', tone: 'blue' },
+              ],
+            },
+          ],
+        } as NodePopoverData,
+      },
     ];
 
     const edges: GraphEdge[] = [
       { id: 'alert-server-a', source: 'alert', target: 'server-a' },
       { id: 'server-a-server-b', source: 'server-a', target: 'server-b' },
       { id: 'server-b-endpoint-primary', source: 'server-b', target: 'endpoint-primary' },
-      { id: 'server-b-endpoint-secondary', source: 'server-b', target: 'endpoint-secondary' }
+      { id: 'server-b-endpoint-secondary', source: 'server-b', target: 'endpoint-secondary' },
     ];
 
     return of({ nodes, edges }).pipe(delay(120));
@@ -192,38 +185,38 @@ export class GraphDomainService {
         icon: 'assets/icons/graph/asset-server.svg',
         name: 'Loremipsumdolorsit',
         ip: '192.168.1.1',
-        risk: 'Critical'
+        risk: 'Critical',
       },
       {
         icon: 'assets/icons/graph/asset-server.svg',
         name: 'Loremipsumdolorsit002',
         ip: '192.168.1.2',
-        risk: 'Critical'
+        risk: 'Critical',
       },
       {
         icon: 'assets/icons/graph/asset-server.svg',
         name: 'api-gateway-01',
         ip: '192.168.1.8',
-        risk: 'High'
+        risk: 'High',
       },
       {
         icon: 'assets/icons/graph/asset-server.svg',
         name: 'billing-service-01',
         ip: '192.168.1.12',
-        risk: 'Medium'
+        risk: 'Medium',
       },
       {
         icon: 'assets/icons/graph/asset-server.svg',
         name: 'analytics-worker-01',
         ip: '192.168.1.18',
-        risk: 'Low'
+        risk: 'Low',
       },
       {
         icon: 'assets/icons/graph/asset-server.svg',
         name: 'auth-proxy-01',
         ip: '192.168.1.21',
-        risk: 'High'
-      }
+        risk: 'High',
+      },
     ];
 
     return of(rows).pipe(delay(80));
@@ -234,23 +227,23 @@ export class GraphDomainService {
       {
         count: 2,
         label: 'Critical',
-        toneClass: 'graph-panel__risk-item--critical'
+        toneClass: 'graph-panel__risk-item--critical',
       },
       {
         count: 2,
         label: 'High',
-        toneClass: 'graph-panel__risk-item--high'
+        toneClass: 'graph-panel__risk-item--high',
       },
       {
         count: 1,
         label: 'Medium',
-        toneClass: 'graph-panel__risk-item--medium'
+        toneClass: 'graph-panel__risk-item--medium',
       },
       {
         count: 1,
         label: 'Low',
-        toneClass: 'graph-panel__risk-item--low'
-      }
+        toneClass: 'graph-panel__risk-item--low',
+      },
     ];
 
     return of(summary).pipe(delay(80));
@@ -261,18 +254,18 @@ export class GraphDomainService {
       {
         label: 'Critical',
         icon: 'assets/icons/graph/legend-critical.svg',
-        toneClass: 'graph-panel__legend-chip--critical'
+        toneClass: 'graph-panel__legend-chip--critical',
       },
       {
         label: 'High',
         icon: 'assets/icons/graph/legend-high.svg',
-        toneClass: 'graph-panel__legend-chip--warning'
+        toneClass: 'graph-panel__legend-chip--warning',
       },
       {
         label: 'Low',
         icon: 'assets/icons/graph/legend-low.svg',
-        toneClass: 'graph-panel__legend-chip--ok'
-      }
+        toneClass: 'graph-panel__legend-chip--ok',
+      },
     ];
   }
 
@@ -286,20 +279,20 @@ export class GraphDomainService {
         id: '1',
         title: 'Update firewall rules',
         description: 'Review and update firewall rules to ensure proper security configuration.',
-        priority: 'high'
+        priority: 'high',
       },
       {
         id: '2',
         title: 'Enable logging',
         description: 'Enable detailed logging for security monitoring and audit trails.',
-        priority: 'medium'
+        priority: 'medium',
       },
       {
         id: '3',
         title: 'Configure rate limiting',
         description: 'Implement rate limiting to prevent DDoS attacks.',
-        priority: 'medium'
-      }
+        priority: 'medium',
+      },
     ];
   }
 }
