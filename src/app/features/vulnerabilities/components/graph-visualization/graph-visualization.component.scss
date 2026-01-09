@@ -54,6 +54,50 @@
   margin: 0 auto;
 }
 
+@media (max-width: $breakpoint-laptop) {
+  :host {
+    --graph-min-width: #{$graph-panel-graph-min-width-compact};
+    --graph-min-height: #{$graph-panel-graph-min-height-compact};
+    --graph-node-width: #{$graph-node-width-compact};
+    --graph-node-height: #{$graph-node-height-compact};
+    --graph-node-icon-size: #{$graph-node-icon-size-compact};
+    --graph-node-icon-x: #{$graph-node-icon-x-compact};
+    --graph-node-icon-y: #{$graph-node-icon-y-compact};
+    --graph-node-badge-size: #{$graph-node-badge-size-compact};
+    --graph-node-badge-x: #{$graph-node-badge-x-compact};
+    --graph-node-badge-y: #{$graph-node-badge-y-compact};
+    --graph-node-label-y: #{$graph-node-label-y-compact};
+    --graph-node-tag-y: #{$graph-node-tag-y-compact};
+    --graph-layout-node-padding: #{$graph-layout-node-padding-compact};
+    --graph-layout-rank-padding: #{$graph-layout-rank-padding-compact};
+    --graph-layout-margin-x: #{$graph-layout-margin-x-compact};
+    --graph-layout-margin-y: #{$graph-layout-margin-y-compact};
+    --graph-pan-offset-x: #{$graph-pan-offset-x-compact};
+  }
+}
+
+@media (max-width: $breakpoint-small-laptop) {
+  :host {
+    --graph-min-width: #{$graph-panel-graph-min-width-compact-sm};
+    --graph-min-height: #{$graph-panel-graph-min-height-compact-sm};
+    --graph-node-width: #{$graph-node-width-compact-sm};
+    --graph-node-height: #{$graph-node-height-compact-sm};
+    --graph-node-icon-size: #{$graph-node-icon-size-compact-sm};
+    --graph-node-icon-x: #{$graph-node-icon-x-compact-sm};
+    --graph-node-icon-y: #{$graph-node-icon-y-compact-sm};
+    --graph-node-badge-size: #{$graph-node-badge-size-compact-sm};
+    --graph-node-badge-x: #{$graph-node-badge-x-compact-sm};
+    --graph-node-badge-y: #{$graph-node-badge-y-compact-sm};
+    --graph-node-label-y: #{$graph-node-label-y-compact-sm};
+    --graph-node-tag-y: #{$graph-node-tag-y-compact-sm};
+    --graph-layout-node-padding: #{$graph-layout-node-padding-compact-sm};
+    --graph-layout-rank-padding: #{$graph-layout-rank-padding-compact-sm};
+    --graph-layout-margin-x: #{$graph-layout-margin-x-compact-sm};
+    --graph-layout-margin-y: #{$graph-layout-margin-y-compact-sm};
+    --graph-pan-offset-x: #{$graph-pan-offset-x-compact-sm};
+  }
+}
+
 @media (max-width: $breakpoint-md) {
   :host {
     --graph-min-width: 0;

@@ -185,7 +185,8 @@ module.exports = {
         'popover-mobile': '90vw'
       },
       minHeight: {
-        '96': '384px'
+        '96': '384px',
+        '744': '744px'
       },
       minWidth: {
         '820': '820px',

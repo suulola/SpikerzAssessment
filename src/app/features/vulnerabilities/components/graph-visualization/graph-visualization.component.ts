@@ -36,11 +36,14 @@ export class GraphVisualizationComponent implements AfterViewInit, OnDestroy {
   private resizeObserver?: ResizeObserver;
   private viewportQuery?: MediaQueryList;
   private viewportListener?: (event: MediaQueryListEvent) => void;
+  private laptopQuery?: MediaQueryList;
+  private laptopListener?: (event: MediaQueryListEvent) => void;
   private hoverTimeout: ReturnType<typeof setTimeout> | null = null;
   private leaveTimeout: ReturnType<typeof setTimeout> | null = null;
   readonly curve = curveBundle.beta(1);
   protected readonly panningAxis = PanningAxis.Horizontal;
   protected readonly isCompact = signal(false);
+  protected readonly isLaptop = signal(false);
   private readonly branchArrowPrimaryId = 'server-b-endpoint-primary';
   private readonly branchArrowSecondaryId = 'server-b-endpoint-secondary';
   private readonly branchArrowWidth = 208;
@@ -209,7 +212,7 @@ export class GraphVisualizationComponent implements AfterViewInit, OnDestroy {
       return 'translate(168, 0)';
     }
     if (node.id === 'endpoint-secondary') {
-      return 'translate(168, -25)';
+      return this.isLaptop() ? 'translate(168, 0)' : 'translate(168, -25)';
     }
     return '';
   }
@@ -240,6 +243,9 @@ export class GraphVisualizationComponent implements AfterViewInit, OnDestroy {
     if (this.viewportQuery && this.viewportListener) {
       this.viewportQuery.removeEventListener('change', this.viewportListener);
     }
+    if (this.laptopQuery && this.laptopListener) {
+      this.laptopQuery.removeEventListener('change', this.laptopListener);
+    }
   }
 
   private setupViewportQuery(): void {
@@ -247,14 +253,23 @@ export class GraphVisualizationComponent implements AfterViewInit, OnDestroy {
       return;
     }
     const query = window.matchMedia('(max-width: 1124px)');
+    const laptopQuery = window.matchMedia('(max-width: 1540px)');
     const update = (event: MediaQueryList | MediaQueryListEvent) => {
       this.isCompact.set(event.matches);
     };
+    const updateLaptop = (event: MediaQueryList | MediaQueryListEvent) => {
+      this.isLaptop.set(event.matches);
+    };
     update(query);
+    updateLaptop(laptopQuery);
     const listener = (event: MediaQueryListEvent) => update(event);
+    const laptopListener = (event: MediaQueryListEvent) => updateLaptop(event);
     query.addEventListener('change', listener);
+    laptopQuery.addEventListener('change', laptopListener);
     this.viewportQuery = query;
     this.viewportListener = listener;
+    this.laptopQuery = laptopQuery;
+    this.laptopListener = laptopListener;
   }
 
   protected onCanvasClick(): void {
